@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">RunMint</string>
+    <string name="title_activity_main_ui">MainUiActivity</string>
+</resources>
