@@ -29,9 +29,9 @@ class MainUiActivity : ComponentActivity() {
                         title = { Text(
                             modifier = Modifier
                                 .fillMaxWidth(),
+                            style = MaterialTheme.typography.displayLarge,
                             text = "RunMint",
-                            textAlign = TextAlign.Center,
-                            fontFamily = MaterialTheme.typography.displayLarge.fontFamily) },
+                            textAlign = TextAlign.Center) },
                         colors = TopAppBarDefaults.topAppBarColors(
                             titleContentColor = Color.White,
                             containerColor = MaterialTheme.colorScheme.secondary)) },
