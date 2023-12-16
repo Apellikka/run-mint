@@ -15,6 +15,7 @@ val Stalinist = FontFamily(
 // Set of Material typography styles to start with
 val Typography = Typography(
     displayLarge = TextStyle(
+        color = runmint_theme_light_text_white,
         fontFamily = Stalinist,
         fontWeight = FontWeight.ExtraBold,
         fontSize = 28.sp,
@@ -22,10 +23,34 @@ val Typography = Typography(
         letterSpacing = 0.sp
     ),
     labelLarge = TextStyle(
+        color = runmint_theme_light_text_white,
         fontFamily = Stalinist,
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp,
         lineHeight = 28.sp,
         letterSpacing = 0.sp
+    ),
+    bodyLarge = TextStyle(
+        color = runmint_theme_light_text_black,
+        fontFamily = Stalinist,
+        fontWeight = FontWeight.Normal,
+        fontSize = 15.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.sp
+    ),
+    bodyMedium = TextStyle(
+        color = runmint_theme_light_text_black,
+        fontFamily = Stalinist,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.sp
+    ),
+    titleLarge = TextStyle(
+        color = runmint_theme_light_text_black,
+        fontFamily = Stalinist,
+        fontWeight = FontWeight.Bold,
+        fontSize = 20.sp,
+        lineHeight = 20.sp
     )
 )
