@@ -3,11 +3,12 @@ package com.apellikka.runmint.ui.theme
 import androidx.compose.ui.graphics.Color
 
 // Light theme colors
-//primary is 75 alpha now
-val runmint_theme_light_primary = Color(0xBF242283)
+val runmint_theme_light_primary = Color(0xFF2DADA6)
 val runmint_theme_light_secondary = Color(0xFF50CDAF)
 val runmint_theme_light_tertiary = Color(0xFF80F6F0)
 val runmint_theme_light_background = Color(0xFF71EBE4)
+val runmint_theme_light_text_black = Color.Black
+val runmint_theme_light_text_white = Color.White
 
 // Dark theme colors
 val runmint_theme_dark_primary = Color(0xFF242283)
