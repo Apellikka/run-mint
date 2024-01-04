@@ -3,12 +3,16 @@ package com.apellikka.runmint.ui.composables
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
@@ -20,9 +24,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.apellikka.runmint.R
 import com.apellikka.runmint.ui.theme.RunMintTheme
 import com.apellikka.runmint.ui.theme.Stalinist
 
@@ -60,24 +66,27 @@ fun HomeScreen() {
         {
             Column(
                 modifier = Modifier
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Top
+                    .verticalScroll(rememberScrollState())
+                    .fillMaxSize()
             ) {
                 Text(
                     modifier = Modifier
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .padding(vertical = 20.dp),
                     style = MaterialTheme.typography.titleLarge,
-                    text = "This week",
+                    text = stringResource(id = R.string.this_week),
                     fontFamily = Stalinist,
                     textAlign = TextAlign.Center
                 )
-                Text(
-                    modifier = Modifier
-                        .padding(start = 15.dp),
-                    style = MaterialTheme.typography.bodyLarge,
-                    text = "Easy",
-                    textAlign = TextAlign.Start
-                )
+                CardContentText(infoTitle = R.string.title_easy, true)
+                Spacer(modifier = Modifier.height(10.dp))
+                CardContentText(infoTitle = R.string.title_tempo, true)
+                Spacer(modifier = Modifier.height(10.dp))
+                CardContentText(infoTitle = R.string.title_interval, true)
+                Spacer(modifier = Modifier.height(10.dp))
+                CardContentText(infoTitle = R.string.title_other, true)
+                Spacer(modifier = Modifier.height(10.dp))
+                CardContentText(infoTitle = R.string.title_total, false)
             }
         }
     }

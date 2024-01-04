@@ -13,8 +13,9 @@ import androidx.compose.ui.unit.dp
 import com.apellikka.runmint.R
 
 @Composable
-fun HomeScreenInfoText(
-    @StringRes infoTitle: Int
+fun CardContentText(
+    @StringRes infoTitle: Int,
+    showAvgPace: Boolean?
 ) {
     Column {
         Text(
@@ -38,13 +39,15 @@ fun HomeScreenInfoText(
             text = stringResource(id = R.string.duration),
             textAlign = TextAlign.Start
         )
-        Text(
-            modifier = Modifier
-                .padding(start = 30.dp),
-            style = MaterialTheme.typography.bodyMedium,
-            text = stringResource(id = R.string.avg_pace),
-            textAlign = TextAlign.Start
-        )
+        if (showAvgPace == true) {
+            Text(
+                modifier = Modifier
+                    .padding(start = 30.dp),
+                style = MaterialTheme.typography.bodyMedium,
+                text = stringResource(id = R.string.avg_pace),
+                textAlign = TextAlign.Start
+            )
+        }
     }
 
 }
