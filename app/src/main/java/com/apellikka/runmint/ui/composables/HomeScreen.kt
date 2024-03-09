@@ -29,11 +29,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.apellikka.runmint.R
+import com.apellikka.runmint.RunNavigationActions
 import com.apellikka.runmint.ui.theme.RunMintTheme
 import com.apellikka.runmint.ui.theme.Stalinist
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    navigationActions: RunNavigationActions
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -48,7 +51,7 @@ fun HomeScreen() {
                 .size(150.dp)
                 .shadow(15.dp, CircleShape),
             shape = CircleShape,
-            onClick = {},
+            onClick = { navigationActions.navigateToAddRunScreen() },
             colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary)
         ) {
             Text(
@@ -57,6 +60,7 @@ fun HomeScreen() {
                 textAlign = TextAlign.Center
             )
         }
+        // TODO: Wrap card and content into it's own composable as well?
         ElevatedCard(
             modifier = Modifier
                 .fillMaxSize()
