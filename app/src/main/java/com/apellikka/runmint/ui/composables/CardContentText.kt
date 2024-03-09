@@ -39,6 +39,7 @@ fun CardContentText(
             text = stringResource(id = R.string.duration),
             textAlign = TextAlign.Start
         )
+        // TODO: Do something different instead of a boolean?
         if (showAvgPace == true) {
             Text(
                 modifier = Modifier
