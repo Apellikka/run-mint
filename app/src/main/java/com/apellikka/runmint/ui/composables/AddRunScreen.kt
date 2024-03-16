@@ -24,11 +24,18 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.apellikka.runmint.viewmodels.AddRunViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddRunScreen() {
+fun AddRunScreen(
+    addRunViewModel: AddRunViewModel = viewModel()) {
+
+    //TODO: Next order of business is to validate the inputs and add
+    // the remaining fields.
+
     var selectedRunType by remember { mutableStateOf("") }
     var distance by remember { mutableStateOf("") }
     var hours by remember { mutableStateOf("") }
@@ -87,7 +94,8 @@ fun AddRunScreen() {
         }
         OutlinedTextField(
             value = distance,
-            onValueChange = { distance = it },
+            onValueChange = {
+                distance = addRunViewModel.validateDistanceInput(it) },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Decimal,
                 imeAction = ImeAction.Next
@@ -104,7 +112,8 @@ fun AddRunScreen() {
         )
         OutlinedTextField(
             value = hours,
-            onValueChange = { hours = it },
+            onValueChange = {
+                hours = addRunViewModel.validateHourInput(it) },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Decimal,
                 imeAction = ImeAction.Next
