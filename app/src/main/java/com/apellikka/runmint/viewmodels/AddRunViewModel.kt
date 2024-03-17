@@ -2,11 +2,18 @@ package com.apellikka.runmint.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.apellikka.runmint.InputValidator
+import com.apellikka.runmint.R
 
 class AddRunViewModel : ViewModel() {
 
     private val inputValidator = InputValidator()
-    val runTypes = arrayOf("Easy", "Long", "Tempo", "Interval")
+
+    val runTypes = arrayOf(
+        R.string.easy_run_type,
+        R.string.long_run_type,
+        R.string.tempo_run_type,
+        R.string.interval_run_type
+    )
 
     fun validateDistanceInput(input: String): String {
         return inputValidator.validateDistanceInput(input)

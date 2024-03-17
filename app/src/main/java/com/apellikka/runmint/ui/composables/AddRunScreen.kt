@@ -21,7 +21,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -42,6 +44,7 @@ fun AddRunScreen(
     var minutes by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -80,11 +83,11 @@ fun AddRunScreen(
                 addRunViewModel.runTypes.forEach { item ->
                     DropdownMenuItem(
                         text = { Text(
-                            text = item,
+                            text = stringResource(id = item),
                             style = MaterialTheme.typography.bodyMedium
                         ) },
                         onClick = {
-                            selectedRunType = item
+                            selectedRunType = context.getString(item)
                             expanded = false
                         }
                     )
