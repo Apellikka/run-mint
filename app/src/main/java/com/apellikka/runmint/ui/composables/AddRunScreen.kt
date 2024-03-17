@@ -36,6 +36,8 @@ fun AddRunScreen(
     //TODO: Next order of business is to validate the inputs and add
     // the remaining fields.
 
+    // TODO: Add runTypes to an array in viewmodel
+
     var selectedRunType by remember { mutableStateOf("") }
     var distance by remember { mutableStateOf("") }
     var hours by remember { mutableStateOf("") }
@@ -130,7 +132,7 @@ fun AddRunScreen(
         )
         OutlinedTextField(
             value = minutes,
-            onValueChange = { minutes = it },
+            onValueChange = { minutes = addRunViewModel.validateMinuteInput(it) },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Decimal,
                 imeAction = ImeAction.Next
