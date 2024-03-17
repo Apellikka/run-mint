@@ -1,21 +1,21 @@
 package com.apellikka.runmint.viewmodels
 
 import androidx.lifecycle.ViewModel
-import com.apellikka.runmint.DecimalFormatter
+import com.apellikka.runmint.InputValidator
 
 class AddRunViewModel : ViewModel() {
 
-    private val decimalFormatter = DecimalFormatter()
+    private val inputValidator = InputValidator()
 
     fun validateDistanceInput(input: String): String {
-        return decimalFormatter.validateDecimalInput(input)
+        return inputValidator.validateDistanceInput(input)
     }
 
     fun validateHourInput(input: String): String {
-        return ""
+        return inputValidator.validateHourInput(input)
     }
 
     fun validateMinuteInput(input: String): String {
-        return ""
+        return inputValidator.validateMinuteInput(input)
     }
 }
