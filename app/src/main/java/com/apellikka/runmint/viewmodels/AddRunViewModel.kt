@@ -6,6 +6,7 @@ import com.apellikka.runmint.InputValidator
 class AddRunViewModel : ViewModel() {
 
     private val inputValidator = InputValidator()
+    val runTypes = arrayOf("Easy", "Long", "Tempo", "Interval")
 
     fun validateDistanceInput(input: String): String {
         return inputValidator.validateDistanceInput(input)
