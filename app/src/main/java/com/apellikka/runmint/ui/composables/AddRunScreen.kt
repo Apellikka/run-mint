@@ -31,18 +31,16 @@ import com.apellikka.runmint.viewmodels.AddRunViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddRunScreen(
-    addRunViewModel: AddRunViewModel = viewModel()) {
-
+    addRunViewModel: AddRunViewModel = viewModel())
+{
     //TODO: Next order of business is to validate the inputs and add
     // the remaining fields.
-    // TODO: Add runTypes to an array in viewmodel
 
     var selectedRunType by remember { mutableStateOf("") }
     var distance by remember { mutableStateOf("") }
     var hours by remember { mutableStateOf("") }
     var minutes by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
-    val runTypes = arrayOf("Easy", "Long", "Tempo", "Interval")
     val focusManager = LocalFocusManager.current
 
     Column(
@@ -79,7 +77,7 @@ fun AddRunScreen(
                 expanded = expanded,
                 onDismissRequest = { expanded = false }
             ) {
-                runTypes.forEach { item ->
+                addRunViewModel.runTypes.forEach { item ->
                     DropdownMenuItem(
                         text = { Text(
                             text = item,
