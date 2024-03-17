@@ -43,6 +43,8 @@ fun AddRunScreen(
     var hours by remember { mutableStateOf("") }
     var minutes by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
+    var date by remember { mutableStateOf("") }
+
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
 
@@ -52,6 +54,14 @@ fun AddRunScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        OutlinedTextField(
+            value = date,
+            onValueChange = { date = it },
+            readOnly = true,
+            label = { Text(
+                text = "Date",
+                style = MaterialTheme.typography.bodyMedium)
+            })
         ExposedDropdownMenuBox(
             expanded = expanded,
             onExpandedChange = {
