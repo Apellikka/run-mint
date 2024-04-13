@@ -1,13 +1,21 @@
 package com.apellikka.runmint.ui.composables
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -26,15 +34,17 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.apellikka.runmint.R
 import com.apellikka.runmint.viewmodels.AddRunViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddRunScreen(
-    addRunViewModel: AddRunViewModel = viewModel())
-{
+    addRunViewModel: AddRunViewModel = viewModel()
+) {
     //TODO: Next order of business is to validate the inputs and add
     // the remaining fields.
 
@@ -42,110 +52,306 @@ fun AddRunScreen(
     var distance by remember { mutableStateOf("") }
     var hours by remember { mutableStateOf("") }
     var minutes by remember { mutableStateOf("") }
+    var date by remember { mutableStateOf("") }
+    var avgPace by remember { mutableStateOf("") }
+    var avgSpeed by remember { mutableStateOf("") }
+    var cadence by remember { mutableStateOf("") }
+    var strideLength by remember { mutableStateOf("") }
+    var heartRateMax by remember { mutableStateOf("") }
+    var heartRateAvg by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
+    var toggleOptionalInputs by remember { mutableStateOf(false) }
+
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
 
     Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        ExposedDropdownMenuBox(
-            expanded = expanded,
-            onExpandedChange = {
-                expanded = !expanded
-            }) {
-            OutlinedTextField(
-                modifier = Modifier
-                    .menuAnchor(),
-                value = selectedRunType,
-                onValueChange = {},
-                readOnly = true,
-                trailingIcon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(
-                        expanded = expanded
-                    ) },
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = MaterialTheme.colorScheme.background
-                ),
-                textStyle = MaterialTheme.typography.bodyMedium,
-                label = { Text(
-                    text = "Type of run",
-                    style = MaterialTheme.typography.bodyMedium
-                )}
+        Button(
+            modifier = Modifier
+                .width(TextFieldDefaults.MinWidth)
+                .padding(top = 8.dp),
+            colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary),
+            onClick = { toggleOptionalInputs = !toggleOptionalInputs },
+        ) {
+            Text(
+                text =
+                if (toggleOptionalInputs) stringResource(id = R.string.hide_optional_inputs)
+                else stringResource(id = R.string.show_optional_inputs),
+                style = MaterialTheme.typography.labelSmall
             )
-            ExposedDropdownMenu(
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState(), enabled = true),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            OutlinedTextField(
+                textStyle = MaterialTheme.typography.bodyMedium,
+                value = date,
+                onValueChange = { date = it },
+                readOnly = true,
+                label = {
+                    Text(
+                        text = stringResource(id = R.string.date_label),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                })
+            ExposedDropdownMenuBox(
                 expanded = expanded,
-                onDismissRequest = { expanded = false }
-            ) {
-                addRunViewModel.runTypes.forEach { item ->
-                    DropdownMenuItem(
-                        text = { Text(
-                            text = stringResource(id = item),
+                onExpandedChange = {
+                    expanded = !expanded
+                }) {
+                OutlinedTextField(
+                    modifier = Modifier
+                        .menuAnchor(),
+                    value = selectedRunType,
+                    onValueChange = {},
+                    readOnly = true,
+                    trailingIcon = {
+                        ExposedDropdownMenuDefaults.TrailingIcon(
+                            expanded = expanded
+                        )
+                    },
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = MaterialTheme.colorScheme.background
+                    ),
+                    textStyle = MaterialTheme.typography.bodyMedium,
+                    label = {
+                        Text(
+                            text = stringResource(id = R.string.type_of_run_label),
                             style = MaterialTheme.typography.bodyMedium
-                        ) },
-                        onClick = {
-                            selectedRunType = context.getString(item)
-                            expanded = false
+                        )
+                    }
+                )
+                ExposedDropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false }
+                ) {
+                    addRunViewModel.runTypes.forEach { item ->
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    text = stringResource(id = item),
+                                    style = MaterialTheme.typography.bodyMedium
+                                )
+                            },
+                            onClick = {
+                                selectedRunType = context.getString(item)
+                                expanded = false
+                            }
+                        )
+                    }
+                }
+            }
+            OutlinedTextField(
+                textStyle = MaterialTheme.typography.bodyMedium,
+                value = distance,
+                onValueChange = {
+                    distance = addRunViewModel.validateDistanceInput(it)
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Decimal,
+                    imeAction = ImeAction.Next
+                ),
+                keyboardActions = KeyboardActions(
+                    onNext = {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    }
+                ),
+                label = {
+                    Text(
+                        text = stringResource(id = R.string.distance_label),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            )
+            OutlinedTextField(
+                textStyle = MaterialTheme.typography.bodyMedium,
+                value = hours,
+                onValueChange = {
+                    hours = addRunViewModel.validateHourInput(it)
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Decimal,
+                    imeAction = ImeAction.Next
+                ),
+                keyboardActions = KeyboardActions(
+                    onNext = {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    }
+                ),
+                label = {
+                    Text(
+                        text = stringResource(id = R.string.hours_label),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            )
+            OutlinedTextField(
+                textStyle = MaterialTheme.typography.bodyMedium,
+                value = minutes,
+                onValueChange = { minutes = addRunViewModel.validateMinuteInput(it) },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Decimal,
+                    imeAction = ImeAction.Next
+                ),
+                keyboardActions = KeyboardActions(
+                    onNext = {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    }
+                ),
+                label = {
+                    Text(
+                        text = stringResource(id = R.string.minutes_label),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            )
+            AnimatedVisibility(
+                visible = toggleOptionalInputs
+            ) {
+                Column {
+                    OutlinedTextField(
+                        textStyle = MaterialTheme.typography.bodyMedium,
+                        value = pace,
+                        onValueChange = { pace = addRunViewModel.validatePaceInput(it) },
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Decimal,
+                            imeAction = ImeAction.Next
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onNext = {
+                                focusManager.moveFocus(FocusDirection.Down)
+                            }
+                        ),
+                        label = {
+                            Text(
+                                text = stringResource(id = R.string.avg_pace_label),
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
+                    )
+                    OutlinedTextField(
+                        textStyle = MaterialTheme.typography.bodyMedium,
+                        value = speed,
+                        onValueChange = { speed = addRunViewModel.validateSpeedInput(it) },
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Decimal,
+                            imeAction = ImeAction.Next
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onNext = {
+                                focusManager.moveFocus(FocusDirection.Down)
+                            }
+                        ),
+                        label = {
+                            Text(
+                                text = stringResource(id = R.string.avg_speed_label),
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
+                    )
+                    OutlinedTextField(
+                        textStyle = MaterialTheme.typography.bodyMedium,
+                        value = cadence,
+                        onValueChange = { cadence = it }, //TODO: validate
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Decimal,
+                            imeAction = ImeAction.Next
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onNext = {
+                                focusManager.moveFocus(FocusDirection.Down)
+                            }
+                        ),
+                        label = {
+                            Text(
+                                text = stringResource(id = R.string.cadence_label),
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
+                    )
+                    OutlinedTextField(
+                        textStyle = MaterialTheme.typography.bodyMedium,
+                        value = strideLength,
+                        onValueChange = { strideLength = it }, //TODO: validate
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Decimal,
+                            imeAction = ImeAction.Next
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onNext = {
+                                focusManager.moveFocus(FocusDirection.Down)
+                            }
+                        ),
+                        label = {
+                            Text(
+                                text = stringResource(id = R.string.stride_length_label),
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
+                    )
+                    OutlinedTextField(
+                        textStyle = MaterialTheme.typography.bodyMedium,
+                        value = heartRateMax,
+                        onValueChange = { heartRateMax = it }, //TODO: validate
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Decimal,
+                            imeAction = ImeAction.Next
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onNext = {
+                                focusManager.moveFocus(FocusDirection.Down)
+                            }
+                        ),
+                        label = {
+                            Text(
+                                text = stringResource(id = R.string.hr_max_label),
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
+                    )
+                    OutlinedTextField(
+                        textStyle = MaterialTheme.typography.bodyMedium,
+                        value = heartRateAvg,
+                        onValueChange = { heartRateAvg = it }, //TODO: validate
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Decimal,
+                            imeAction = ImeAction.Next
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onNext = {
+                                focusManager.moveFocus(FocusDirection.Down)
+                            }
+                        ),
+                        label = {
+                            Text(
+                                text = stringResource(id = R.string.hr_avg_label),
+                                style = MaterialTheme.typography.bodyMedium
+                            )
                         }
                     )
                 }
             }
+            Button(
+                modifier = Modifier
+                    .defaultMinSize(
+                        minWidth = TextFieldDefaults.MinWidth,
+                        minHeight = TextFieldDefaults.MinHeight
+                    )
+                    .padding(vertical = 8.dp),
+                colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary),
+                onClick = {},
+            ) {
+                Text(
+                    text = stringResource(id = R.string.add_run),
+                    style = MaterialTheme.typography.labelSmall
+                )
+            }
         }
-        OutlinedTextField(
-            value = distance,
-            onValueChange = {
-                distance = addRunViewModel.validateDistanceInput(it) },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Decimal,
-                imeAction = ImeAction.Next
-            ),
-            keyboardActions = KeyboardActions(
-                onNext = {
-                    focusManager.moveFocus(FocusDirection.Down)
-                }
-            ),
-            label = { Text(
-                text = "Distance",
-                style = MaterialTheme.typography.bodyMedium
-            )}
-        )
-        OutlinedTextField(
-            value = hours,
-            onValueChange = {
-                hours = addRunViewModel.validateHourInput(it) },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Decimal,
-                imeAction = ImeAction.Next
-            ),
-            keyboardActions = KeyboardActions(
-                onNext = {
-                    focusManager.moveFocus(FocusDirection.Down)
-                }
-            ),
-            label = { Text(
-                text = "Hours",
-                style = MaterialTheme.typography.bodyMedium
-            ) }
-        )
-        OutlinedTextField(
-            value = minutes,
-            onValueChange = { minutes = addRunViewModel.validateMinuteInput(it) },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Decimal,
-                imeAction = ImeAction.Next
-            ),
-            keyboardActions = KeyboardActions(
-                onNext = {
-                    focusManager.moveFocus(FocusDirection.Down)
-                }
-            ),
-            label = { Text(
-                text = "Minutes",
-                style = MaterialTheme.typography.bodyMedium
-            ) }
-        )
     }
 }
