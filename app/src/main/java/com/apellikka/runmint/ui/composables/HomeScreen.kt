@@ -56,7 +56,7 @@ fun HomeScreen(
         ) {
             Text(
                 style = MaterialTheme.typography.labelLarge,
-                text = "Add run",
+                text = stringResource(id = R.string.add_run),
                 textAlign = TextAlign.Center
             )
         }
@@ -112,7 +112,7 @@ fun PreviewHomeScreen() {
                 onClick = {},
                 shape = RoundedCornerShape(100)
             ) {
-                Text(text = "Add run")
+                Text(text = stringResource(id = R.string.add_run))
             }
         }
     }

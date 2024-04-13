@@ -30,7 +30,7 @@ class MainUiActivity : ComponentActivity() {
                             modifier = Modifier
                                 .fillMaxWidth(),
                             style = MaterialTheme.typography.displayLarge,
-                            text = "RunMint",
+                            text = "RunMint", // TODO: String res
                             textAlign = TextAlign.Center) },
                         colors = TopAppBarDefaults.topAppBarColors(
                             titleContentColor = Color.White,
