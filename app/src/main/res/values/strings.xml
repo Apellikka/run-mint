@@ -14,4 +14,20 @@
     <string name="long_run_type">Long</string>
     <string name="tempo_run_type">Tempo</string>
     <string name="interval_run_type">Interval</string>
+    <string name="run_walk_type">Run / Walk</string>
+    <string name="date_label">Date</string>
+    <string name="distance_label">Distance</string>
+    <string name="hours_label">Hours</string>
+    <string name="minutes_label">Minutes</string>
+    <string name="type_of_run_label">Type of run</string>
+    <string name="avg_pace_label">Average pace</string>
+    <string name="avg_speed_label">Average speed</string>
+    <string name="cadence_label">Cadence</string>
+    <string name="stride_length_label">Stride length</string>
+    <string name="hr_max_label">Heart rate max</string>
+    <string name="hr_avg_label">Heart rate average</string>
+    <string name="add_run">Add run</string>
+    <string name="show_optional_inputs">Show optional inputs</string>
+    <string name="hide_optional_inputs">Hide optional inputs</string>
+
 </resources>
