@@ -30,6 +30,14 @@ val Typography = Typography(
         lineHeight = 28.sp,
         letterSpacing = 0.sp
     ),
+    labelSmall = TextStyle(
+        color = runmint_theme_light_text_white,
+        fontFamily = Stalinist,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.sp
+    ),
     bodyLarge = TextStyle(
         color = runmint_theme_light_text_black,
         fontFamily = Stalinist,
