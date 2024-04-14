@@ -45,21 +45,19 @@ import com.apellikka.runmint.viewmodels.AddRunViewModel
 fun AddRunScreen(
     addRunViewModel: AddRunViewModel = viewModel()
 ) {
-    //TODO: Next order of business is to validate the inputs and add
-    // the remaining fields.
 
     var selectedRunType by remember { mutableStateOf("") }
     var distance by remember { mutableStateOf("") }
     var hours by remember { mutableStateOf("") }
     var minutes by remember { mutableStateOf("") }
     var date by remember { mutableStateOf("") }
-    var avgPace by remember { mutableStateOf("") }
-    var avgSpeed by remember { mutableStateOf("") }
+    var pace by remember { mutableStateOf("") }
+    var speed by remember { mutableStateOf("") }
     var cadence by remember { mutableStateOf("") }
     var strideLength by remember { mutableStateOf("") }
     var heartRateMax by remember { mutableStateOf("") }
     var heartRateAvg by remember { mutableStateOf("") }
-    var expanded by remember { mutableStateOf(false) }
+    var runTypeDropdownExpanded by remember { mutableStateOf(false) }
     var toggleOptionalInputs by remember { mutableStateOf(false) }
 
     val focusManager = LocalFocusManager.current
@@ -101,9 +99,9 @@ fun AddRunScreen(
                     )
                 })
             ExposedDropdownMenuBox(
-                expanded = expanded,
+                expanded = runTypeDropdownExpanded,
                 onExpandedChange = {
-                    expanded = !expanded
+                    runTypeDropdownExpanded = !runTypeDropdownExpanded
                 }) {
                 OutlinedTextField(
                     modifier = Modifier
@@ -113,7 +111,7 @@ fun AddRunScreen(
                     readOnly = true,
                     trailingIcon = {
                         ExposedDropdownMenuDefaults.TrailingIcon(
-                            expanded = expanded
+                            expanded = runTypeDropdownExpanded
                         )
                     },
                     colors = TextFieldDefaults.textFieldColors(
@@ -128,8 +126,8 @@ fun AddRunScreen(
                     }
                 )
                 ExposedDropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false }
+                    expanded = runTypeDropdownExpanded,
+                    onDismissRequest = { runTypeDropdownExpanded = false }
                 ) {
                     addRunViewModel.runTypes.forEach { item ->
                         DropdownMenuItem(
@@ -141,7 +139,7 @@ fun AddRunScreen(
                             },
                             onClick = {
                                 selectedRunType = context.getString(item)
-                                expanded = false
+                                runTypeDropdownExpanded = false
                             }
                         )
                     }
@@ -258,7 +256,7 @@ fun AddRunScreen(
                     OutlinedTextField(
                         textStyle = MaterialTheme.typography.bodyMedium,
                         value = cadence,
-                        onValueChange = { cadence = it }, //TODO: validate
+                        onValueChange = { cadence = addRunViewModel.validateIntUnderThreeHundred(it) },
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Decimal,
                             imeAction = ImeAction.Next
@@ -278,7 +276,7 @@ fun AddRunScreen(
                     OutlinedTextField(
                         textStyle = MaterialTheme.typography.bodyMedium,
                         value = strideLength,
-                        onValueChange = { strideLength = it }, //TODO: validate
+                        onValueChange = { strideLength = addRunViewModel.validateIntUnderThreeHundred(it) },
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Decimal,
                             imeAction = ImeAction.Next
@@ -298,7 +296,7 @@ fun AddRunScreen(
                     OutlinedTextField(
                         textStyle = MaterialTheme.typography.bodyMedium,
                         value = heartRateMax,
-                        onValueChange = { heartRateMax = it }, //TODO: validate
+                        onValueChange = { heartRateMax = addRunViewModel.validateIntUnderThreeHundred(it) },
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Decimal,
                             imeAction = ImeAction.Next
@@ -318,7 +316,7 @@ fun AddRunScreen(
                     OutlinedTextField(
                         textStyle = MaterialTheme.typography.bodyMedium,
                         value = heartRateAvg,
-                        onValueChange = { heartRateAvg = it }, //TODO: validate
+                        onValueChange = { heartRateAvg = addRunViewModel.validateIntUnderThreeHundred(it) },
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Decimal,
                             imeAction = ImeAction.Next

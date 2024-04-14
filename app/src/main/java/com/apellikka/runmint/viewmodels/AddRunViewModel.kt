@@ -16,8 +16,20 @@ class AddRunViewModel : ViewModel() {
         R.string.interval_run_type
     )
 
+    fun validateIntUnderThreeHundred(input: String): String {
+        return inputValidator.validateIntegerUnderThreeHundred(input)
+    }
+
     fun validateDistanceInput(input: String): String {
         return inputValidator.validateDistanceInput(input)
+    }
+
+    fun validateSpeedInput(input: String): String {
+        return inputValidator.validateSpeedInput(input)
+    }
+
+    fun validatePaceInput(input: String): String {
+        return inputValidator.validatePaceInput(input)
     }
 
     fun validateHourInput(input: String): String {
