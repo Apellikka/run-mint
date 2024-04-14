@@ -228,7 +228,7 @@ fun AddRunScreen(
                         ),
                         label = {
                             Text(
-                                text = stringResource(id = R.string.avg_pace_label),
+                                text = stringResource(id = R.string.pace_label),
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         }
@@ -248,7 +248,7 @@ fun AddRunScreen(
                         ),
                         label = {
                             Text(
-                                text = stringResource(id = R.string.avg_speed_label),
+                                text = stringResource(id = R.string.speed_label),
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         }

@@ -20,8 +20,8 @@
     <string name="hours_label">Hours</string>
     <string name="minutes_label">Minutes</string>
     <string name="type_of_run_label">Type of run</string>
-    <string name="avg_pace_label">Average pace</string>
-    <string name="avg_speed_label">Average speed</string>
+    <string name="pace_label">Pace</string>
+    <string name="speed_label">Speed</string>
     <string name="cadence_label">Cadence</string>
     <string name="stride_length_label">Stride length</string>
     <string name="hr_max_label">Heart rate max</string>
