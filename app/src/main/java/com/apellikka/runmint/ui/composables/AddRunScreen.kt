@@ -1,6 +1,8 @@
 package com.apellikka.runmint.ui.composables
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.defaultMinSize
@@ -59,13 +61,26 @@ fun AddRunScreen(
     var heartRateAvg by remember { mutableStateOf("") }
     var runTypeDropdownExpanded by remember { mutableStateOf(false) }
     var toggleOptionalInputs by remember { mutableStateOf(false) }
+    var showDatePicker by remember { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(false) }
 
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
 
+    val source = remember { MutableInteractionSource() }
+    if ( source.collectIsPressedAsState().value) {
+        showDatePicker = true
+    }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        if (showDatePicker) {
+            RunDatePickerDialog(
+                onDateSelected = { date = it },
+                onDismiss = { showDatePicker = false }
+            )
+        }
         Button(
             modifier = Modifier
                 .width(TextFieldDefaults.MinWidth)
@@ -89,6 +104,7 @@ fun AddRunScreen(
         ) {
             OutlinedTextField(
                 textStyle = MaterialTheme.typography.bodyMedium,
+                interactionSource = source,
                 value = date,
                 onValueChange = { date = it },
                 readOnly = true,
