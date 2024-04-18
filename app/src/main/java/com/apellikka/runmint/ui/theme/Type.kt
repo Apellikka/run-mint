@@ -8,6 +8,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.apellikka.runmint.R
 
+// TODO: Change font
 val Stalinist = FontFamily(
     Font(R.font.stalinist_one_regular, FontWeight.Normal)
 )
