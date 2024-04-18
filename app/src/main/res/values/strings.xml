@@ -1,4 +1,33 @@
 <resources>
     <string name="app_name">RunMint</string>
     <string name="title_activity_main_ui">MainUiActivity</string>
+    <string name="title_easy">● Easy</string>
+    <string name="title_tempo">● Tempo</string>
+    <string name="title_interval">● Interval</string>
+    <string name="title_other">● Other</string>
+    <string name="title_total">● Total</string>
+    <string name="distance">Distance: </string>
+    <string name="duration">Duration: </string>
+    <string name="avg_pace">Avg pace: </string>
+    <string name="this_week">This week</string>
+    <string name="easy_run_type">Easy</string>
+    <string name="long_run_type">Long</string>
+    <string name="tempo_run_type">Tempo</string>
+    <string name="interval_run_type">Interval</string>
+    <string name="run_walk_type">Run / Walk</string>
+    <string name="date_label">Date</string>
+    <string name="distance_label">Distance</string>
+    <string name="hours_label">Hours</string>
+    <string name="minutes_label">Minutes</string>
+    <string name="type_of_run_label">Type of run</string>
+    <string name="pace_label">Pace</string>
+    <string name="speed_label">Speed</string>
+    <string name="cadence_label">Cadence</string>
+    <string name="stride_length_label">Stride length</string>
+    <string name="hr_max_label">Heart rate max</string>
+    <string name="hr_avg_label">Heart rate average</string>
+    <string name="add_run">Add run</string>
+    <string name="show_optional_inputs">Show optional inputs</string>
+    <string name="hide_optional_inputs">Hide optional inputs</string>
+
 </resources>

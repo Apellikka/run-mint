@@ -25,10 +25,12 @@ fun RunMintTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
+    val colorScheme = LightColorScheme
+    /* TODO: Improve DarkTheme colors.
+    when {
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
-    }
+    }*/
 
     MaterialTheme(
         colorScheme = colorScheme,
