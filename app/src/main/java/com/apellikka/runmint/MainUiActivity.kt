@@ -15,6 +15,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.apellikka.runmint.ui.theme.RunMintTheme
 
@@ -30,7 +31,7 @@ class MainUiActivity : ComponentActivity() {
                             modifier = Modifier
                                 .fillMaxWidth(),
                             style = MaterialTheme.typography.displayLarge,
-                            text = "RunMint", // TODO: String res
+                            text = stringResource(id = R.string.app_name),
                             textAlign = TextAlign.Center) },
                         colors = TopAppBarDefaults.topAppBarColors(
                             titleContentColor = Color.White,
