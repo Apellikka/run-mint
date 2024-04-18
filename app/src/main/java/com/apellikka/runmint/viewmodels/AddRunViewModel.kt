@@ -3,8 +3,6 @@ package com.apellikka.runmint.viewmodels
 import androidx.lifecycle.ViewModel
 import com.apellikka.runmint.InputValidator
 import com.apellikka.runmint.R
-import java.text.DateFormat
-import java.util.Date
 
 class AddRunViewModel : ViewModel() {
 
@@ -17,10 +15,6 @@ class AddRunViewModel : ViewModel() {
         R.string.tempo_run_type,
         R.string.interval_run_type
     )
-    fun convertMillisToDate(millis: Long): String {
-        val formatter = DateFormat.getDateInstance()
-        return formatter.format(Date(millis))
-    }
     fun validateIntUnderThreeHundred(input: String): String {
         return inputValidator.validateIntegerUnderThreeHundred(input)
     }
