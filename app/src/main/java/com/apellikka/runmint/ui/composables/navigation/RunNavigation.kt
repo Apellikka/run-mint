@@ -1,9 +1,9 @@
-package com.apellikka.runmint
+package com.apellikka.runmint.ui.composables.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import com.apellikka.runmint.RunScreens.ADD_RUN_SCREEN
-import com.apellikka.runmint.RunScreens.HOME_SCREEN
+import com.apellikka.runmint.ui.composables.navigation.RunScreens.ADD_RUN_SCREEN
+import com.apellikka.runmint.ui.composables.navigation.RunScreens.HOME_SCREEN
 
 private object RunScreens {
     const val HOME_SCREEN = "home"
