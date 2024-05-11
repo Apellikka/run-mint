@@ -37,7 +37,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.apellikka.runmint.R
 import com.apellikka.runmint.viewmodels.AddRunViewModel
 
@@ -45,7 +44,7 @@ import com.apellikka.runmint.viewmodels.AddRunViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddRunScreen(
-    addRunViewModel: AddRunViewModel = viewModel()
+    addRunViewModel: AddRunViewModel
 ) {
 
     var selectedRunType by remember { mutableStateOf("") }
@@ -62,7 +61,6 @@ fun AddRunScreen(
     var runTypeDropdownExpanded by remember { mutableStateOf(false) }
     var toggleOptionalInputs by remember { mutableStateOf(false) }
     var showDatePicker by remember { mutableStateOf(false) }
-    var expanded by remember { mutableStateOf(false) }
 
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current

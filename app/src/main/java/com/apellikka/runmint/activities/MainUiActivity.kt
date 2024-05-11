@@ -1,4 +1,4 @@
-package com.apellikka.runmint
+package com.apellikka.runmint.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -17,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import com.apellikka.runmint.R
+import com.apellikka.runmint.ui.composables.navigation.RunNavGraph
 import com.apellikka.runmint.ui.theme.RunMintTheme
 
 class MainUiActivity : ComponentActivity() {

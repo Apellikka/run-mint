@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".application.RunMintApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,7 +16,7 @@
         android:theme="@style/Theme.RunMint"
         tools:targetApi="31">
         <activity
-            android:name=".MainUiActivity"
+            android:name=".activities.MainUiActivity"
             android:exported="true"
             android:label="@string/title_activity_main_ui"
             android:theme="@style/Theme.RunMint">
