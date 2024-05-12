@@ -1,4 +1,4 @@
-package com.apellikka.runmint
+package com.apellikka.runmint.viewmodels.viewmodelutils
 
 import java.text.DecimalFormatSymbols
 

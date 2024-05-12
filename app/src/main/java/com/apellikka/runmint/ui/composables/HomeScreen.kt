@@ -29,7 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.apellikka.runmint.R
-import com.apellikka.runmint.RunNavigationActions
+import com.apellikka.runmint.ui.composables.navigation.RunNavigationActions
 import com.apellikka.runmint.ui.theme.RunMintTheme
 import com.apellikka.runmint.ui.theme.Stalinist
 

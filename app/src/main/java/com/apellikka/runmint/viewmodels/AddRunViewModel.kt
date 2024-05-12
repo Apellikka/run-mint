@@ -1,10 +1,15 @@
 package com.apellikka.runmint.viewmodels
 
 import androidx.lifecycle.ViewModel
-import com.apellikka.runmint.InputValidator
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.apellikka.runmint.R
+import com.apellikka.runmint.data.entity.Run
+import com.apellikka.runmint.repositories.RunRepository
+import com.apellikka.runmint.viewmodels.viewmodelutils.InputValidator
+import kotlinx.coroutines.launch
 
-class AddRunViewModel : ViewModel() {
+class AddRunViewModel(private val runRepository: RunRepository) : ViewModel() {
 
     private val inputValidator = InputValidator()
 
@@ -15,6 +20,12 @@ class AddRunViewModel : ViewModel() {
         R.string.tempo_run_type,
         R.string.interval_run_type
     )
+
+    fun insertRun(run: Run) {
+        viewModelScope.launch {
+            runRepository.insertRun(run)
+        }
+    }
     fun validateIntUnderThreeHundred(input: String): String {
         return inputValidator.validateIntegerUnderThreeHundred(input)
     }
@@ -39,3 +50,24 @@ class AddRunViewModel : ViewModel() {
         return inputValidator.validateMinuteInput(input)
     }
 }
+
+class AddRunViewModelFactory(private val repository: RunRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(AddRunViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return AddRunViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
