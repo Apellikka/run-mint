@@ -1,4 +1,4 @@
-package com.apellikka.runmint.data.entity
+package com.apellikka.runmint.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

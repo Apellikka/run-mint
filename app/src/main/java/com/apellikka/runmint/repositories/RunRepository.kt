@@ -1,8 +1,8 @@
 package com.apellikka.runmint.repositories
 
 import androidx.annotation.WorkerThread
-import com.apellikka.runmint.dao.RunDao
-import com.apellikka.runmint.data.entity.Run
+import com.apellikka.runmint.database.dao.RunDao
+import com.apellikka.runmint.database.entity.Run
 
 class RunRepository(
     private val runDao: RunDao

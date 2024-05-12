@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.apellikka.runmint.R
-import com.apellikka.runmint.data.entity.Run
+import com.apellikka.runmint.database.entity.Run
 import com.apellikka.runmint.repositories.RunRepository
 import com.apellikka.runmint.viewmodels.viewmodelutils.InputValidator
 import kotlinx.coroutines.launch

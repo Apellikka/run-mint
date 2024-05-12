@@ -5,12 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.apellikka.runmint.converters.Converters
-import com.apellikka.runmint.dao.RunDao
-import com.apellikka.runmint.data.entity.Run
+import com.apellikka.runmint.database.converters.DateConverter
+import com.apellikka.runmint.database.dao.RunDao
+import com.apellikka.runmint.database.entity.Run
 
 @Database(entities = [Run::class], version = 1)
-@TypeConverters(Converters::class)
+@TypeConverters(DateConverter::class)
 abstract class RunDatabase : RoomDatabase() {
     abstract fun runDao(): RunDao
 

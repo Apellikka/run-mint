@@ -1,10 +1,10 @@
-package com.apellikka.runmint.dao
+package com.apellikka.runmint.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.apellikka.runmint.data.entity.Run
+import com.apellikka.runmint.database.entity.Run
 
 @Dao
 interface RunDao {
