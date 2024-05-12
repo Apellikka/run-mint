@@ -12,8 +12,8 @@ interface RunDao {
     fun getAllRuns(): List<Run>
 
     @Insert
-    fun insertRun(run: Run)
+    suspend fun insertRun(run: Run)
 
     @Delete
-    fun deleteRun(run: Run)
+    suspend fun deleteRun(run: Run)
 }
