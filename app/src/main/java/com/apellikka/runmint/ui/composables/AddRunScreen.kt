@@ -37,14 +37,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.apellikka.runmint.R
+import com.apellikka.runmint.application.RunMintApplication
 import com.apellikka.runmint.viewmodels.AddRunViewModel
+import com.apellikka.runmint.viewmodels.AddRunViewModelFactory
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddRunScreen(
-    addRunViewModel: AddRunViewModel
+    addRunViewModel: AddRunViewModel = viewModel(
+        factory = AddRunViewModelFactory((LocalContext.current.applicationContext as RunMintApplication).repository)
+    )
 ) {
 
     var selectedRunType by remember { mutableStateOf("") }
