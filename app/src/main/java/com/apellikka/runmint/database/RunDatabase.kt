@@ -27,7 +27,6 @@ abstract class RunDatabase : RoomDatabase() {
                     RunDatabase::class.java,
                     "run_database"
                 ).build()
-
                 INSTANCE = instance
                 return instance
             }

@@ -1,6 +1,8 @@
 package com.apellikka.runmint.ui.composables
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -13,9 +15,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenuItem
@@ -23,6 +22,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
@@ -40,9 +44,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.apellikka.runmint.R
 import com.apellikka.runmint.application.RunMintApplication
+import com.apellikka.runmint.database.entity.Run
 import com.apellikka.runmint.viewmodels.AddRunViewModel
 import com.apellikka.runmint.viewmodels.AddRunViewModelFactory
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -66,6 +70,7 @@ fun AddRunScreen(
     var runTypeDropdownExpanded by remember { mutableStateOf(false) }
     var toggleOptionalInputs by remember { mutableStateOf(false) }
     var showDatePicker by remember { mutableStateOf(false) }
+    var requiredFieldIndicator by remember { mutableStateOf((false)) }
 
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
@@ -95,6 +100,7 @@ fun AddRunScreen(
                 text =
                 if (toggleOptionalInputs) stringResource(id = R.string.hide_optional_inputs)
                 else stringResource(id = R.string.show_optional_inputs),
+
                 style = MaterialTheme.typography.labelSmall
             )
         }
@@ -106,6 +112,11 @@ fun AddRunScreen(
             verticalArrangement = Arrangement.Center
         ) {
             OutlinedTextField(
+                colors =
+                if(requiredFieldIndicator && date.isBlank())
+                    OutlinedTextFieldDefaults.colors(unfocusedBorderColor = Color.Red)
+                else OutlinedTextFieldDefaults.colors(),
+
                 textStyle = MaterialTheme.typography.bodyMedium,
                 interactionSource = source,
                 value = date,
@@ -133,9 +144,16 @@ fun AddRunScreen(
                             expanded = runTypeDropdownExpanded
                         )
                     },
-                    colors = TextFieldDefaults.textFieldColors(
-                        backgroundColor = MaterialTheme.colorScheme.background
-                    ),
+                    colors =
+                        if(requiredFieldIndicator && selectedRunType.isEmpty())
+                            OutlinedTextFieldDefaults.colors(
+                                focusedContainerColor = MaterialTheme.colorScheme.background,
+                                unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                                unfocusedBorderColor = Color.Red)
+                        else OutlinedTextFieldDefaults.colors(
+                            focusedContainerColor = MaterialTheme.colorScheme.background,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.background),
+
                     textStyle = MaterialTheme.typography.bodyMedium,
                     label = {
                         Text(
@@ -145,8 +163,10 @@ fun AddRunScreen(
                     }
                 )
                 ExposedDropdownMenu(
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.background),
                     expanded = runTypeDropdownExpanded,
-                    onDismissRequest = { runTypeDropdownExpanded = false }
+                    onDismissRequest = { runTypeDropdownExpanded = false },
                 ) {
                     addRunViewModel.runTypes.forEach { item ->
                         DropdownMenuItem(
@@ -165,6 +185,11 @@ fun AddRunScreen(
                 }
             }
             OutlinedTextField(
+                colors =
+                if(requiredFieldIndicator && distance.isBlank())
+                    OutlinedTextFieldDefaults.colors(unfocusedBorderColor = Color.Red)
+                else OutlinedTextFieldDefaults.colors(),
+
                 textStyle = MaterialTheme.typography.bodyMedium,
                 value = distance,
                 onValueChange = {
@@ -187,6 +212,11 @@ fun AddRunScreen(
                 }
             )
             OutlinedTextField(
+                colors =
+                if(requiredFieldIndicator && hours.isBlank())
+                    OutlinedTextFieldDefaults.colors(unfocusedBorderColor = Color.Red)
+                else OutlinedTextFieldDefaults.colors(),
+
                 textStyle = MaterialTheme.typography.bodyMedium,
                 value = hours,
                 onValueChange = {
@@ -209,6 +239,11 @@ fun AddRunScreen(
                 }
             )
             OutlinedTextField(
+                colors =
+                if(requiredFieldIndicator && minutes.isBlank())
+                    OutlinedTextFieldDefaults.colors(unfocusedBorderColor = Color.Red)
+                else OutlinedTextFieldDefaults.colors(),
+
                 textStyle = MaterialTheme.typography.bodyMedium,
                 value = minutes,
                 onValueChange = { minutes = addRunViewModel.validateMinuteInput(it) },
@@ -362,7 +397,46 @@ fun AddRunScreen(
                     )
                     .padding(vertical = 8.dp),
                 colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary),
-                onClick = {},
+                onClick = {
+                    if(addRunViewModel.requiredFieldsAreFilled(
+                            date = date,
+                            runType = selectedRunType,
+                            distance = distance,
+                            hours = hours,
+                            minutes = minutes,
+                    )) {
+                        val run = Run(
+                            date = date,
+                            runType = selectedRunType,
+                            distance = distance.toDouble(),
+                            hours = hours.toInt(),
+                            minutes = minutes.toInt(),
+                            pace = if(pace.isNotEmpty()) pace.toDouble() else null,
+                            speed = if(speed.isNotEmpty()) speed.toDouble() else null,
+                            cadence = if(cadence.isNotEmpty()) cadence.toInt() else null,
+                            stride = if(strideLength.isNotEmpty()) strideLength.toInt() else null,
+                            hrMax = if(heartRateMax.isNotEmpty()) heartRateMax.toInt() else null,
+                            hrAvg = if(heartRateAvg.isNotEmpty()) heartRateAvg.toInt() else null,
+                        )
+                        addRunViewModel.insertRun(run)
+                        date = ""
+                        selectedRunType = ""
+                        distance = ""
+                        hours = ""
+                        minutes = ""
+                        pace = ""
+                        speed = ""
+                        cadence = ""
+                        strideLength = ""
+                        heartRateMax = ""
+                        heartRateAvg = ""
+                        requiredFieldIndicator = false
+                    }
+                    else {
+                        Toast.makeText(context, "Fill all required fields!", Toast.LENGTH_LONG).show()
+                        requiredFieldIndicator = true
+                    }
+                },
             ) {
                 Text(
                     text = stringResource(id = R.string.add_run),

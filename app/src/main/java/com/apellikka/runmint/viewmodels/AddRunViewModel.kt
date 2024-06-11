@@ -26,6 +26,21 @@ class AddRunViewModel(private val runRepository: RunRepository) : ViewModel() {
             runRepository.insertRun(run)
         }
     }
+
+    fun requiredFieldsAreFilled(
+        date: String,
+        runType: String,
+        distance: String,
+        hours: String,
+        minutes: String
+    ): Boolean {
+        return (date.isNotEmpty()
+                && runType.isNotEmpty()
+                && distance.isNotEmpty()
+                && hours.isNotEmpty()
+                && minutes.isNotEmpty())
+    }
+
     fun validateIntUnderThreeHundred(input: String): String {
         return inputValidator.validateIntegerUnderThreeHundred(input)
     }

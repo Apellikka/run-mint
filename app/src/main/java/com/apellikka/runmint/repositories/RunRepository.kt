@@ -7,7 +7,6 @@ import com.apellikka.runmint.database.entity.Run
 class RunRepository(
     private val runDao: RunDao
 ) {
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insertRun(run: Run) {
         runDao.insertRun(run)

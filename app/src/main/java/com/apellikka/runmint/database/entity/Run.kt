@@ -2,11 +2,11 @@ package com.apellikka.runmint.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.Date
 
 @Entity(tableName = "runs")
 data class Run(
-    @PrimaryKey val date: Date,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val date: String,
     val runType: String,
     val distance: Double,
     val hours: Int,
