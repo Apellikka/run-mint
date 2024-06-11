@@ -29,5 +29,9 @@
     <string name="add_run">Add run</string>
     <string name="show_optional_inputs">Show optional inputs</string>
     <string name="hide_optional_inputs">Hide optional inputs</string>
+    <string name="home">Home</string>
+    <string name="log">Log</string>
+    <string name="plan">Plan</string>
+    <string name="stats">Stats</string>
 
 </resources>
