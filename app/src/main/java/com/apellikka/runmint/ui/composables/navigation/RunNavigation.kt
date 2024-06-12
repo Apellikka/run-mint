@@ -30,9 +30,10 @@ class RunNavigationActions(private val navController: NavController) {
             ADD_RUN_SCREEN
         ) {
             popUpTo(navController.graph.findStartDestination().id) {
-                saveState = false
+                saveState = true
             }
             launchSingleTop = true
+            restoreState = true
         }
     }
 }
