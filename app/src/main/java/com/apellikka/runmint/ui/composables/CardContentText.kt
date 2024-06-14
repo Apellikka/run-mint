@@ -11,12 +11,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.apellikka.runmint.R
+import com.apellikka.runmint.WeeklyStats
+import kotlin.math.roundToInt
 
 @Composable
 fun CardContentText(
     @StringRes infoTitle: Int,
+    weeklyStats: WeeklyStats,
     showAvgPace: Boolean?
 ) {
+    val minutes = weeklyStats.avgPace.toInt()
+    val seconds = ((weeklyStats.avgPace - minutes) * 60).roundToInt()
+
     Column {
         Text(
             modifier = Modifier
@@ -29,14 +35,14 @@ fun CardContentText(
             modifier = Modifier
                 .padding(start = 30.dp),
             style = MaterialTheme.typography.bodyMedium,
-            text = stringResource(id = R.string.distance),
+            text = stringResource(id = R.string.distance) + " " + weeklyStats.distance,
             textAlign = TextAlign.Start
         )
         Text(
             modifier = Modifier
                 .padding(start = 30.dp),
             style = MaterialTheme.typography.bodyMedium,
-            text = stringResource(id = R.string.duration),
+            text = stringResource(id = R.string.duration) +  " " + weeklyStats.duration,
             textAlign = TextAlign.Start
         )
         // TODO: Do something different instead of a boolean?
@@ -45,7 +51,7 @@ fun CardContentText(
                 modifier = Modifier
                     .padding(start = 30.dp),
                 style = MaterialTheme.typography.bodyMedium,
-                text = stringResource(id = R.string.avg_pace),
+                text = String.format("%s %d:%02d", stringResource(id = R.string.avg_pace), minutes, seconds),
                 textAlign = TextAlign.Start
             )
         }

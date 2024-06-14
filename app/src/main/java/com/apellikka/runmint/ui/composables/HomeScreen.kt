@@ -24,19 +24,43 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.apellikka.runmint.R
+import com.apellikka.runmint.WeeklyStats
+import com.apellikka.runmint.application.RunMintApplication
 import com.apellikka.runmint.ui.composables.navigation.RunNavigationActions
 import com.apellikka.runmint.ui.theme.RunMintTheme
 import com.apellikka.runmint.ui.theme.Stalinist
+import com.apellikka.runmint.viewmodels.HomeScreenViewModel
+import com.apellikka.runmint.viewmodels.HomeScreenViewModelFactory
 
 @Composable
 fun HomeScreen(
-    navigationActions: RunNavigationActions
+    navigationActions: RunNavigationActions,
+    homeScreenViewModel: HomeScreenViewModel = viewModel(
+        factory = HomeScreenViewModelFactory((LocalContext.current.applicationContext as RunMintApplication).repository)
+    )
 ) {
+<<<<<<< HEAD
+
+    val easyStats = homeScreenViewModel.getEasyStats()
+=======
+    var placeHolderStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
+    var easyStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
+
+
+    LaunchedEffect(key1 = easyStats) {
+        homeScreenViewModel.easyStats.collectLatest { value ->
+            easyStats = value
+        }
+    }
+>>>>>>> c21757e (fixup! Add functionality for getting run stats WIP)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -82,6 +106,7 @@ fun HomeScreen(
                     fontFamily = Stalinist,
                     textAlign = TextAlign.Center
                 )
+<<<<<<< HEAD
                 CardContentText(infoTitle = R.string.title_easy, true)
                 Spacer(modifier = Modifier.height(10.dp))
                 CardContentText(infoTitle = R.string.title_tempo, true)
@@ -91,6 +116,17 @@ fun HomeScreen(
                 CardContentText(infoTitle = R.string.title_other, true)
                 Spacer(modifier = Modifier.height(10.dp))
                 CardContentText(infoTitle = R.string.title_total, false)
+=======
+                CardContentText(infoTitle = R.string.title_easy, easyStats,true)
+                Spacer(modifier = Modifier.height(10.dp))
+                CardContentText(infoTitle = R.string.title_tempo, placeHolderStats, true)
+                Spacer(modifier = Modifier.height(10.dp))
+                CardContentText(infoTitle = R.string.title_interval, placeHolderStats, true)
+                Spacer(modifier = Modifier.height(10.dp))
+                CardContentText(infoTitle = R.string.title_other, placeHolderStats, true)
+                Spacer(modifier = Modifier.height(10.dp))
+                CardContentText(infoTitle = R.string.title_total, placeHolderStats, false)
+>>>>>>> c21757e (fixup! Add functionality for getting run stats WIP)
             }
         }
     }

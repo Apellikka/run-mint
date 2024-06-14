@@ -5,11 +5,15 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.apellikka.runmint.database.entity.Run
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RunDao {
     @Query("SELECT * FROM runs")
-    suspend fun getAllRuns(): List<Run>
+    fun getAllRuns(): List<Run>
+
+    @Query("SELECT SUM(distance) FROM runs WHERE runtype = 'Easy'")
+    fun getEasyDistanceTotal(): Flow<Double>
 
     @Insert
     suspend fun insertRun(run: Run)

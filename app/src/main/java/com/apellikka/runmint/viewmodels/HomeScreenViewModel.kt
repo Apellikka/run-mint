@@ -2,21 +2,13 @@ package com.apellikka.runmint.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
-import com.apellikka.runmint.database.entity.Run
+import com.apellikka.runmint.WeeklyStats
 import com.apellikka.runmint.repositories.RunRepository
-import kotlinx.coroutines.launch
 
 class HomeScreenViewModel(private val runRepository: RunRepository) : ViewModel() {
 
-    fun getEasyStats(): List<Run>
-    {
-        var allRuns: List<Run> = emptyList()
-        viewModelScope.launch {
-            allRuns = runRepository.getAllRuns()
-        }
-        return allRuns
-    }
+    val easyStats: Flow<WeeklyStats> = runRepository.getWeeklyEasyRunStats()
+
 }
 
 class HomeScreenViewModelFactory(private val repository: RunRepository) : ViewModelProvider.Factory {

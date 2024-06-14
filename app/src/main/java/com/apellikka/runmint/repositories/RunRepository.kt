@@ -3,6 +3,7 @@ package com.apellikka.runmint.repositories
 import androidx.annotation.WorkerThread
 import com.apellikka.runmint.database.dao.RunDao
 import com.apellikka.runmint.database.entity.Run
+import kotlinx.coroutines.flow.Flow
 
 class RunRepository(
     private val runDao: RunDao
@@ -12,9 +13,8 @@ class RunRepository(
         runDao.insertRun(run)
     }
 
-    @WorkerThread
-    suspend fun getAllRuns(): List<Run>
+    fun getEasyDistanceTotal(): Flow<Double>
     {
-        return runDao.getAllRuns()
+        return runDao.getEasyDistanceTotal()
     }
 }
