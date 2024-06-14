@@ -11,4 +11,10 @@ class RunRepository(
     suspend fun insertRun(run: Run) {
         runDao.insertRun(run)
     }
+
+    @WorkerThread
+    suspend fun getAllRuns(): List<Run>
+    {
+        return runDao.getAllRuns()
+    }
 }

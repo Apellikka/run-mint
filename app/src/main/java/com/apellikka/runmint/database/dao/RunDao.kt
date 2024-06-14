@@ -9,7 +9,7 @@ import com.apellikka.runmint.database.entity.Run
 @Dao
 interface RunDao {
     @Query("SELECT * FROM runs")
-    fun getAllRuns(): List<Run>
+    suspend fun getAllRuns(): List<Run>
 
     @Insert
     suspend fun insertRun(run: Run)
