@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.apellikka.runmint.WeeklyStats
 import com.apellikka.runmint.repositories.RunRepository
+import kotlinx.coroutines.flow.Flow
 
 class HomeScreenViewModel(private val runRepository: RunRepository) : ViewModel() {
 
     val easyStats: Flow<WeeklyStats> = runRepository.getWeeklyEasyRunStats()
-
 }
 
 class HomeScreenViewModelFactory(private val repository: RunRepository) : ViewModelProvider.Factory {

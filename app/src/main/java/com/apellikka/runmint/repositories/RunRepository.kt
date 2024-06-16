@@ -1,6 +1,7 @@
 package com.apellikka.runmint.repositories
 
 import androidx.annotation.WorkerThread
+import com.apellikka.runmint.WeeklyStats
 import com.apellikka.runmint.database.dao.RunDao
 import com.apellikka.runmint.database.entity.Run
 import kotlinx.coroutines.flow.Flow
@@ -13,8 +14,8 @@ class RunRepository(
         runDao.insertRun(run)
     }
 
-    fun getEasyDistanceTotal(): Flow<Double>
+    fun getWeeklyEasyRunStats(): Flow<WeeklyStats>
     {
-        return runDao.getEasyDistanceTotal()
+        return runDao.getWeeklyEasyRunStats()
     }
 }
