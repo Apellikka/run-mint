@@ -52,11 +52,7 @@ fun HomeScreen(
         factory = HomeScreenViewModelFactory((LocalContext.current.applicationContext as RunMintApplication).repository)
     )
 ) {
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-    val easyStats = homeScreenViewModel.getEasyStats()
-=======
     var placeHolderStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
     var easyStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
 
@@ -66,21 +62,6 @@ fun HomeScreen(
             easyStats = value
         }
     }
->>>>>>> c21757e (fixup! Add functionality for getting run stats WIP)
-=======
-    var easyRunTotalDistance by remember { mutableStateOf("") }
-    var tempoRunTotalDistance by remember { mutableStateOf("") }
-    var intervalRunTotalDistance by remember { mutableStateOf("") }
-    var otherRunTotalDistance by remember { mutableStateOf("") }
-    var totalRunDistance by remember { mutableStateOf("") }
-
-
-    LaunchedEffect(key1 = easyRunTotalDistance) {
-        homeScreenViewModel.easyStats.collectLatest { value ->
-            easyRunTotalDistance = value.toString()
-        }
-    }
->>>>>>> 503a982 (Add mutableStateOf variables for runstats and collect flow WIP)
 
     Column(
         modifier = Modifier
@@ -127,22 +108,6 @@ fun HomeScreen(
                     fontFamily = Stalinist,
                     textAlign = TextAlign.Center
                 )
-<<<<<<< HEAD
-<<<<<<< HEAD
-                CardContentText(infoTitle = R.string.title_easy, true)
-=======
-                CardContentText(infoTitle = R.string.title_easy, easyRunTotalDistance,true)
->>>>>>> 503a982 (Add mutableStateOf variables for runstats and collect flow WIP)
-                Spacer(modifier = Modifier.height(10.dp))
-                CardContentText(infoTitle = R.string.title_tempo, tempoRunTotalDistance, true)
-                Spacer(modifier = Modifier.height(10.dp))
-                CardContentText(infoTitle = R.string.title_interval, intervalRunTotalDistance, true)
-                Spacer(modifier = Modifier.height(10.dp))
-                CardContentText(infoTitle = R.string.title_other, otherRunTotalDistance, true)
-                Spacer(modifier = Modifier.height(10.dp))
-<<<<<<< HEAD
-                CardContentText(infoTitle = R.string.title_total, false)
-=======
                 CardContentText(infoTitle = R.string.title_easy, easyStats,true)
                 Spacer(modifier = Modifier.height(10.dp))
                 CardContentText(infoTitle = R.string.title_tempo, placeHolderStats, true)
@@ -152,10 +117,6 @@ fun HomeScreen(
                 CardContentText(infoTitle = R.string.title_other, placeHolderStats, true)
                 Spacer(modifier = Modifier.height(10.dp))
                 CardContentText(infoTitle = R.string.title_total, placeHolderStats, false)
->>>>>>> c21757e (fixup! Add functionality for getting run stats WIP)
-=======
-                CardContentText(infoTitle = R.string.title_total, totalRunDistance, false)
->>>>>>> 503a982 (Add mutableStateOf variables for runstats and collect flow WIP)
             }
         }
     }
