@@ -13,10 +13,17 @@ interface RunDao {
     @Query("SELECT * FROM runs")
     fun getAllRuns(): List<Run>
 
-    @Query("SELECT " +
-            "SUM(distance) as distance, " +
-            "SUM(hours*60)+SUM(minutes) as duration " +
-            "FROM runs WHERE runtype = 'Easy'")
+    @Query("SELECT" +
+            " distance, " +
+            " duration, " +
+            "(duration / distance) AS avgPace " +
+            "FROM (" +
+            " SELECT " +
+            " SUM(distance) AS distance," +
+            " SUM(hours * 60) + SUM(minutes) AS duration" +
+            " FROM runs " +
+            " WHERE runtype = 'Easy')"
+            )
     fun getWeeklyEasyRunStats(): Flow<WeeklyStats>
 
     @Insert
