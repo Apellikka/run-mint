@@ -18,8 +18,7 @@ import kotlin.math.roundToInt
 @Composable
 fun CardContentText(
     @StringRes infoTitle: Int,
-    weeklyStats: WeeklyStats,
-    showAvgPace: Boolean?
+    weeklyStats: WeeklyStats
 ) {
     // Convert to show hours, minutes and seconds correctly between 0-60
     // instead of 0-99
@@ -50,16 +49,12 @@ fun CardContentText(
             text = String.format("%s %d:%02d", stringResource(id = R.string.duration), durationHours, durationMinutes),
             textAlign = TextAlign.Start
         )
-        // TODO: Do something different instead of a boolean?
-        if (showAvgPace == true) {
-            Text(
-                modifier = Modifier
-                    .padding(start = 30.dp),
-                style = MaterialTheme.typography.bodyMedium,
-                text = String.format("%s %d:%02d", stringResource(id = R.string.avg_pace), avgPaceMinutes, avgPaceSeconds),
-                textAlign = TextAlign.Start
-            )
+        Text(
+            modifier = Modifier
+                .padding(start = 30.dp),
+            style = MaterialTheme.typography.bodyMedium,
+            text = String.format("%s %d:%02d", stringResource(id = R.string.avg_pace), avgPaceMinutes, avgPaceSeconds),
+            textAlign = TextAlign.Start
+        )
         }
-    }
-
 }

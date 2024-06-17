@@ -136,15 +136,15 @@ fun HomeScreen(
                     fontFamily = Stalinist,
                     textAlign = TextAlign.Center
                 )
-                CardContentText(infoTitle = R.string.title_easy, easyStats,true)
+                CardContentText(infoTitle = R.string.title_easy, easyStats)
                 Spacer(modifier = Modifier.height(10.dp))
-                CardContentText(infoTitle = R.string.title_tempo, tempoStats, true)
+                CardContentText(infoTitle = R.string.title_tempo, tempoStats)
                 Spacer(modifier = Modifier.height(10.dp))
-                CardContentText(infoTitle = R.string.title_interval, intervalStats, true)
+                CardContentText(infoTitle = R.string.title_interval, intervalStats)
                 Spacer(modifier = Modifier.height(10.dp))
-                CardContentText(infoTitle = R.string.title_long, longStats, true)
+                CardContentText(infoTitle = R.string.title_long, longStats)
                 Spacer(modifier = Modifier.height(10.dp))
-                CardContentText(infoTitle = R.string.title_total, totalStats, true)
+                CardContentText(infoTitle = R.string.title_total, totalStats)
             }
         }
     }
