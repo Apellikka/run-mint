@@ -26,6 +26,57 @@ interface RunDao {
             )
     fun getWeeklyEasyRunStats(): Flow<WeeklyStats>
 
+    @Query("SELECT" +
+            " distance, " +
+            " duration, " +
+            "(duration / distance) AS avgPace " +
+            "FROM (" +
+            " SELECT " +
+            " SUM(distance) AS distance," +
+            " SUM(hours * 60) + SUM(minutes) AS duration" +
+            " FROM runs " +
+            " WHERE runtype = 'Tempo')"
+            )
+    fun getWeeklyTempoRunStats(): Flow<WeeklyStats>
+
+    @Query("SELECT" +
+            " distance, " +
+            " duration, " +
+            "(duration / distance) AS avgPace " +
+            "FROM (" +
+            " SELECT " +
+            " SUM(distance) AS distance," +
+            " SUM(hours * 60) + SUM(minutes) AS duration" +
+            " FROM runs " +
+            " WHERE runtype = 'Interval')"
+            )
+    fun getWeeklyIntervalRunStats(): Flow<WeeklyStats>
+
+    @Query("SELECT" +
+            " distance, " +
+            " duration, " +
+            "(duration / distance) AS avgPace " +
+            "FROM (" +
+            " SELECT " +
+            " SUM(distance) AS distance," +
+            " SUM(hours * 60) + SUM(minutes) AS duration" +
+            " FROM runs " +
+            " WHERE runtype = 'Long')"
+    )
+    fun getWeeklyLongRunStats(): Flow<WeeklyStats>
+
+    @Query("SELECT" +
+            " distance, " +
+            " duration, " +
+            "(duration / distance) AS avgPace " +
+            "FROM (" +
+            " SELECT " +
+            " SUM(distance) AS distance," +
+            " SUM(hours * 60) + SUM(minutes) AS duration" +
+            " FROM runs)"
+            )
+    fun getWeeklyTotalRunStats(): Flow<WeeklyStats>
+
     @Insert
     suspend fun insertRun(run: Run)
 

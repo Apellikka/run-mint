@@ -18,4 +18,24 @@ class RunRepository(
     {
         return runDao.getWeeklyEasyRunStats()
     }
+
+    fun getWeeklyTempoRunStats(): Flow<WeeklyStats>
+    {
+        return runDao.getWeeklyTempoRunStats()
+    }
+
+    fun getWeeklyIntervalRunStats(): Flow<WeeklyStats>
+    {
+        return runDao.getWeeklyIntervalRunStats()
+    }
+
+    fun getWeeklyLongRunStats(): Flow<WeeklyStats>
+    {
+        return runDao.getWeeklyLongRunStats()
+    }
+
+    fun getWeeklyTotalRunStats(): Flow<WeeklyStats>
+    {
+        return runDao.getWeeklyTotalRunStats()
+    }
 }
