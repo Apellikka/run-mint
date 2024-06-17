@@ -9,7 +9,7 @@
     <string name="distance">Distance: </string>
     <string name="duration">Duration: </string>
     <string name="avg_pace">Avg pace: </string>
-    <string name="this_week">This week</string>
+    <string name="current_week">Current week</string>
     <string name="easy_run_type">Easy</string>
     <string name="long_run_type">Long</string>
     <string name="tempo_run_type">Tempo</string>

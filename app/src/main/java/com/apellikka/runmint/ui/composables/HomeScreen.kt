@@ -1,5 +1,7 @@
 package com.apellikka.runmint.ui.composables
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -47,6 +49,7 @@ import com.apellikka.runmint.viewmodels.HomeScreenViewModelFactory
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeScreen(
     navigationActions: RunNavigationActions,
@@ -54,7 +57,6 @@ fun HomeScreen(
         factory = HomeScreenViewModelFactory((LocalContext.current.applicationContext as RunMintApplication).repository)
     )
 ) {
-
     var easyStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
     var tempoStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
     var intervalStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
@@ -62,6 +64,7 @@ fun HomeScreen(
     var totalStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
 
     val scope = rememberCoroutineScope()
+    val currentWeekStartAndEnd = homeScreenViewModel.getCurrentWeekStartAndEnd()
 
     LaunchedEffect(easyStats, tempoStats, intervalStats, longStats, totalStats) {
         scope.launch {
@@ -114,7 +117,6 @@ fun HomeScreen(
                 textAlign = TextAlign.Center
             )
         }
-        // TODO: Wrap card and content into it's own composable as well?
         ElevatedCard(
             modifier = Modifier
                 .fillMaxSize()
@@ -130,10 +132,21 @@ fun HomeScreen(
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 20.dp),
+                        .padding(top = 20.dp),
                     style = MaterialTheme.typography.titleLarge,
-                    text = stringResource(id = R.string.this_week),
+                    text = String.format("%s", stringResource(id = R.string.current_week)),
                     fontFamily = Stalinist,
+                    textAlign = TextAlign.Center
+                )
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 10.dp),
+                    style = MaterialTheme.typography.titleLarge,
+                    text = String.format("%s-%s",
+                        currentWeekStartAndEnd.first,
+                        currentWeekStartAndEnd.second
+                    ),
                     textAlign = TextAlign.Center
                 )
                 CardContentText(infoTitle = R.string.title_easy, easyStats)
