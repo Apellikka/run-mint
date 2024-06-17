@@ -12,6 +12,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.apellikka.runmint.R
 import com.apellikka.runmint.WeeklyStats
+import kotlin.math.floor
 import kotlin.math.roundToInt
 
 @Composable
@@ -20,8 +21,12 @@ fun CardContentText(
     weeklyStats: WeeklyStats,
     showAvgPace: Boolean?
 ) {
-    val minutes = weeklyStats.avgPace.toInt()
-    val seconds = ((weeklyStats.avgPace - minutes) * 60).roundToInt()
+    // Convert to show hours, minutes and seconds correctly between 0-60
+    // instead of 0-99
+    val durationHours = floor((weeklyStats.duration / 60)).toInt()
+    val durationMinutes = ((weeklyStats.duration % 60)).roundToInt()
+    val avgPaceMinutes = weeklyStats.avgPace.toInt()
+    val avgPaceSeconds = ((weeklyStats.avgPace - avgPaceMinutes) * 60).roundToInt()
 
     Column {
         Text(
@@ -35,14 +40,14 @@ fun CardContentText(
             modifier = Modifier
                 .padding(start = 30.dp),
             style = MaterialTheme.typography.bodyMedium,
-            text = stringResource(id = R.string.distance) + " " + weeklyStats.distance,
+            text = String.format("%s %.1f", stringResource(id = R.string.distance), weeklyStats.distance),
             textAlign = TextAlign.Start
         )
         Text(
             modifier = Modifier
                 .padding(start = 30.dp),
             style = MaterialTheme.typography.bodyMedium,
-            text = stringResource(id = R.string.duration) +  " " + weeklyStats.duration,
+            text = String.format("%s %d:%02d", stringResource(id = R.string.duration), durationHours, durationMinutes),
             textAlign = TextAlign.Start
         )
         // TODO: Do something different instead of a boolean?
@@ -51,7 +56,7 @@ fun CardContentText(
                 modifier = Modifier
                     .padding(start = 30.dp),
                 style = MaterialTheme.typography.bodyMedium,
-                text = String.format("%s %d:%02d", stringResource(id = R.string.avg_pace), minutes, seconds),
+                text = String.format("%s %d:%02d", stringResource(id = R.string.avg_pace), avgPaceMinutes, avgPaceSeconds),
                 textAlign = TextAlign.Start
             )
         }
