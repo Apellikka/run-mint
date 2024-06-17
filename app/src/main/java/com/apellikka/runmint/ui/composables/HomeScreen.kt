@@ -24,6 +24,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,6 +45,7 @@ import com.apellikka.runmint.ui.theme.Stalinist
 import com.apellikka.runmint.viewmodels.HomeScreenViewModel
 import com.apellikka.runmint.viewmodels.HomeScreenViewModelFactory
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(
@@ -53,13 +55,39 @@ fun HomeScreen(
     )
 ) {
 
-    var placeHolderStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
     var easyStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
+    var tempoStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
+    var intervalStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
+    var longStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
+    var totalStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
 
+    val scope = rememberCoroutineScope()
 
-    LaunchedEffect(key1 = easyStats) {
-        homeScreenViewModel.easyStats.collectLatest { value ->
-            easyStats = value
+    LaunchedEffect(easyStats, tempoStats, intervalStats, longStats, totalStats) {
+        scope.launch {
+            homeScreenViewModel.easyStats.collectLatest { value ->
+                easyStats = value
+            }
+        }
+        scope.launch {
+            homeScreenViewModel.tempoStats.collectLatest { value ->
+                tempoStats = value
+            }
+        }
+        scope.launch {
+            homeScreenViewModel.intervalStats.collectLatest { value ->
+                intervalStats = value
+            }
+        }
+        scope.launch {
+            homeScreenViewModel.longStats.collectLatest { value ->
+                longStats = value
+            }
+        }
+        scope.launch {
+            homeScreenViewModel.totalStats.collectLatest { value ->
+                totalStats = value
+            }
         }
     }
 
@@ -110,13 +138,13 @@ fun HomeScreen(
                 )
                 CardContentText(infoTitle = R.string.title_easy, easyStats,true)
                 Spacer(modifier = Modifier.height(10.dp))
-                CardContentText(infoTitle = R.string.title_tempo, placeHolderStats, true)
+                CardContentText(infoTitle = R.string.title_tempo, tempoStats, true)
                 Spacer(modifier = Modifier.height(10.dp))
-                CardContentText(infoTitle = R.string.title_interval, placeHolderStats, true)
+                CardContentText(infoTitle = R.string.title_interval, intervalStats, true)
                 Spacer(modifier = Modifier.height(10.dp))
-                CardContentText(infoTitle = R.string.title_other, placeHolderStats, true)
+                CardContentText(infoTitle = R.string.title_long, longStats, true)
                 Spacer(modifier = Modifier.height(10.dp))
-                CardContentText(infoTitle = R.string.title_total, placeHolderStats, false)
+                CardContentText(infoTitle = R.string.title_total, totalStats, true)
             }
         }
     }

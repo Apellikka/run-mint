@@ -4,7 +4,7 @@
     <string name="title_easy">● Easy</string>
     <string name="title_tempo">● Tempo</string>
     <string name="title_interval">● Interval</string>
-    <string name="title_other">● Other</string>
+    <string name="title_long">● Long</string>
     <string name="title_total">● Total</string>
     <string name="distance">Distance: </string>
     <string name="duration">Duration: </string>
