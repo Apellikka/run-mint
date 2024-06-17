@@ -14,7 +14,6 @@ class AddRunViewModel(private val runRepository: RunRepository) : ViewModel() {
     private val inputValidator = InputValidator()
 
     val runTypes = arrayOf(
-        R.string.run_walk_type,
         R.string.easy_run_type,
         R.string.long_run_type,
         R.string.tempo_run_type,

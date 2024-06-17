@@ -14,7 +14,6 @@
     <string name="long_run_type">Long</string>
     <string name="tempo_run_type">Tempo</string>
     <string name="interval_run_type">Interval</string>
-    <string name="run_walk_type">Run / Walk</string>
     <string name="date_label">Date</string>
     <string name="distance_label">Distance</string>
     <string name="hours_label">Hours</string>

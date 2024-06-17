@@ -9,6 +9,11 @@ import kotlinx.coroutines.flow.Flow
 class HomeScreenViewModel(private val runRepository: RunRepository) : ViewModel() {
 
     val easyStats: Flow<WeeklyStats> = runRepository.getWeeklyEasyRunStats()
+    val tempoStats: Flow<WeeklyStats> = runRepository.getWeeklyTempoRunStats()
+    val intervalStats: Flow<WeeklyStats> = runRepository.getWeeklyIntervalRunStats()
+    val longStats: Flow<WeeklyStats> = runRepository.getWeeklyLongRunStats()
+    val totalStats: Flow<WeeklyStats> = runRepository.getWeeklyTotalRunStats()
+
 }
 
 class HomeScreenViewModelFactory(private val repository: RunRepository) : ViewModelProvider.Factory {
