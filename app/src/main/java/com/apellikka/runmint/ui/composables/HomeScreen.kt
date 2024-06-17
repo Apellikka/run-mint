@@ -49,7 +49,6 @@ import com.apellikka.runmint.viewmodels.HomeScreenViewModelFactory
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeScreen(
     navigationActions: RunNavigationActions,
@@ -64,7 +63,10 @@ fun HomeScreen(
     var totalStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
 
     val scope = rememberCoroutineScope()
-    val currentWeekStartAndEnd = homeScreenViewModel.getCurrentWeekStartAndEnd()
+
+    val currentWeekStartAndEnd = homeScreenViewModel.getFormattedCurrentWeekStartAndEndDate(
+            homeScreenViewModel.getCurrentWeekStartAndEnd()
+    )
 
     LaunchedEffect(easyStats, tempoStats, intervalStats, longStats, totalStats) {
         scope.launch {

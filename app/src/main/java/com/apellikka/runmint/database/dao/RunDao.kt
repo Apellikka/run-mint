@@ -7,6 +7,7 @@ import androidx.room.Query
 import com.apellikka.runmint.WeeklyStats
 import com.apellikka.runmint.database.entity.Run
 import kotlinx.coroutines.flow.Flow
+import java.time.LocalDate
 
 @Dao
 interface RunDao {
@@ -22,9 +23,9 @@ interface RunDao {
             " SUM(distance) AS distance," +
             " SUM(hours * 60) + SUM(minutes) AS duration" +
             " FROM runs " +
-            " WHERE runtype = 'Easy')"
+            " WHERE runtype = 'Easy' AND date >= :weekStartDate AND date <= :weekEndDate)"
             )
-    fun getWeeklyEasyRunStats(): Flow<WeeklyStats>
+    fun getWeeklyEasyRunStats(weekStartDate: LocalDate, weekEndDate: LocalDate): Flow<WeeklyStats>
 
     @Query("SELECT" +
             " distance, " +

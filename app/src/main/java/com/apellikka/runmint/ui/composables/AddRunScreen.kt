@@ -47,6 +47,8 @@ import com.apellikka.runmint.application.RunMintApplication
 import com.apellikka.runmint.database.entity.Run
 import com.apellikka.runmint.viewmodels.AddRunViewModel
 import com.apellikka.runmint.viewmodels.AddRunViewModelFactory
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -406,7 +408,7 @@ fun AddRunScreen(
                             minutes = minutes,
                     )) {
                         val run = Run(
-                            date = date,
+                            date = LocalDate.parse(date, DateTimeFormatter.ofPattern("MMM dd, yyyy")),
                             runType = selectedRunType,
                             distance = distance.toDouble(),
                             hours = hours.toInt(),

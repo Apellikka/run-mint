@@ -11,25 +11,29 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAdjusters
+@RequiresApi(Build.VERSION_CODES.O)
+class HomeScreenViewModel(runRepository: RunRepository) : ViewModel() {
 
-class HomeScreenViewModel(private val runRepository: RunRepository) : ViewModel() {
 
-    val easyStats: Flow<WeeklyStats> = runRepository.getWeeklyEasyRunStats()
+    private val weekStartAndEnd = getCurrentWeekStartAndEnd()
+
+    val easyStats: Flow<WeeklyStats> = runRepository.getWeeklyEasyRunStats(weekStartAndEnd.first, weekStartAndEnd.second)
     val tempoStats: Flow<WeeklyStats> = runRepository.getWeeklyTempoRunStats()
     val intervalStats: Flow<WeeklyStats> = runRepository.getWeeklyIntervalRunStats()
     val longStats: Flow<WeeklyStats> = runRepository.getWeeklyLongRunStats()
     val totalStats: Flow<WeeklyStats> = runRepository.getWeeklyTotalRunStats()
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun getCurrentWeekStartAndEnd(): Pair<String, String> {
+    fun getCurrentWeekStartAndEnd(): Pair<LocalDate, LocalDate> {
         val today = LocalDate.now()
         val startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
         val endOfWeek = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY))
+        return Pair(startOfWeek, endOfWeek)
+    }
 
+    fun getFormattedCurrentWeekStartAndEndDate(weekStartAndEnd: Pair<LocalDate, LocalDate>): Pair<String, String> {
         val formatter = DateTimeFormatter.ofPattern("dd.MM")
-        val formattedStartOfWeek = startOfWeek.format(formatter)
-        val formattedEndOfWeek = endOfWeek.format(formatter)
-
+        val formattedStartOfWeek = weekStartAndEnd.first.format(formatter)
+        val formattedEndOfWeek = weekStartAndEnd.second.format(formatter)
         return Pair(formattedStartOfWeek, formattedEndOfWeek)
     }
 }

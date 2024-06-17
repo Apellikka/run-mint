@@ -5,6 +5,7 @@ import com.apellikka.runmint.WeeklyStats
 import com.apellikka.runmint.database.dao.RunDao
 import com.apellikka.runmint.database.entity.Run
 import kotlinx.coroutines.flow.Flow
+import java.time.LocalDate
 
 class RunRepository(
     private val runDao: RunDao
@@ -14,9 +15,9 @@ class RunRepository(
         runDao.insertRun(run)
     }
 
-    fun getWeeklyEasyRunStats(): Flow<WeeklyStats>
+    fun getWeeklyEasyRunStats(weekStartDate: LocalDate, weekEndDate: LocalDate): Flow<WeeklyStats>
     {
-        return runDao.getWeeklyEasyRunStats()
+        return runDao.getWeeklyEasyRunStats(weekStartDate, weekEndDate)
     }
 
     fun getWeeklyTempoRunStats(): Flow<WeeklyStats>
