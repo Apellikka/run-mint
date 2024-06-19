@@ -11,16 +11,19 @@ class RunRepository(
     private val runDao: RunDao
 ) {
     @WorkerThread
-    suspend fun insertRun(run: Run) {
+    suspend fun insertRun(run: Run)
+    {
         runDao.insertRun(run)
     }
 
-    fun getWeeklyRunTypeStats(weekStartDate: LocalDate, weekEndDate: LocalDate, runType: String): Flow<WeeklyStats>
+    fun getWeeklyRunTypeStats(weekStartDate: LocalDate, weekEndDate: LocalDate, runType: String)
+    : Flow<WeeklyStats>
     {
         return runDao.getWeeklyRunTypeStats(weekStartDate, weekEndDate, runType)
     }
 
-    fun getWeeklyTotalRunStats(weekStartDate: LocalDate, weekEndDate: LocalDate): Flow<WeeklyStats>
+    fun getWeeklyTotalRunStats(weekStartDate: LocalDate, weekEndDate: LocalDate)
+    : Flow<WeeklyStats>
     {
         return runDao.getWeeklyTotalRunStats(weekStartDate, weekEndDate)
     }
