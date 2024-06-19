@@ -44,7 +44,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.apellikka.runmint.R
 import com.apellikka.runmint.application.RunMintApplication
-import com.apellikka.runmint.database.entity.Run
 import com.apellikka.runmint.viewmodels.AddRunViewModel
 import com.apellikka.runmint.viewmodels.AddRunViewModelFactory
 import java.time.LocalDate
@@ -174,12 +173,12 @@ fun AddRunScreen(
                         DropdownMenuItem(
                             text = {
                                 Text(
-                                    text = stringResource(id = item),
+                                    text = item,
                                     style = MaterialTheme.typography.bodyMedium
                                 )
                             },
                             onClick = {
-                                selectedRunType = context.getString(item)
+                                selectedRunType = item
                                 runTypeDropdownExpanded = false
                             }
                         )
@@ -407,7 +406,7 @@ fun AddRunScreen(
                             hours = hours,
                             minutes = minutes,
                     )) {
-                        val run = Run(
+                        addRunViewModel.insertRun(
                             date = LocalDate.parse(date, DateTimeFormatter.ofPattern("MMM dd, yyyy")),
                             runType = selectedRunType,
                             distance = distance.toDouble(),
@@ -418,9 +417,8 @@ fun AddRunScreen(
                             cadence = if(cadence.isNotEmpty()) cadence.toInt() else null,
                             stride = if(strideLength.isNotEmpty()) strideLength.toInt() else null,
                             hrMax = if(heartRateMax.isNotEmpty()) heartRateMax.toInt() else null,
-                            hrAvg = if(heartRateAvg.isNotEmpty()) heartRateAvg.toInt() else null,
+                            hrAvg = if(heartRateAvg.isNotEmpty()) heartRateAvg.toInt() else null
                         )
-                        addRunViewModel.insertRun(run)
                         date = ""
                         selectedRunType = ""
                         distance = ""

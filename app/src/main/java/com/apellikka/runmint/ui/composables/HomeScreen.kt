@@ -1,7 +1,5 @@
 package com.apellikka.runmint.ui.composables
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -39,8 +37,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.apellikka.runmint.R
-import com.apellikka.runmint.WeeklyStats
 import com.apellikka.runmint.application.RunMintApplication
+import com.apellikka.runmint.domain.model.WeeklyStats
 import com.apellikka.runmint.ui.composables.navigation.RunNavigationActions
 import com.apellikka.runmint.ui.theme.RunMintTheme
 import com.apellikka.runmint.ui.theme.Stalinist

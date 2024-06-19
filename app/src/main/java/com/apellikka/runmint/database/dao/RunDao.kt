@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.apellikka.runmint.WeeklyStats
+import com.apellikka.runmint.domain.model.WeeklyStats
 import com.apellikka.runmint.database.entity.Run
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate

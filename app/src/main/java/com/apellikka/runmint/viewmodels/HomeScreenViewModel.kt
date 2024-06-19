@@ -2,7 +2,8 @@ package com.apellikka.runmint.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.apellikka.runmint.WeeklyStats
+import com.apellikka.runmint.domain.model.RunType
+import com.apellikka.runmint.domain.model.WeeklyStats
 import com.apellikka.runmint.repositories.RunRepository
 import kotlinx.coroutines.flow.Flow
 import java.time.DayOfWeek
@@ -10,14 +11,6 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAdjusters
 class HomeScreenViewModel(runRepository: RunRepository) : ViewModel() {
-
-    enum class RunType(val type: String)
-    {
-        EASY("Easy"),
-        TEMPO("Tempo"),
-        INTERVAL("Interval"),
-        LONG("Long")
-    }
 
     private val weekStartAndEnd = getCurrentWeekStartAndEnd()
 

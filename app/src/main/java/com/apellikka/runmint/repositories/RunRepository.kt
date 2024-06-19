@@ -1,7 +1,7 @@
 package com.apellikka.runmint.repositories
 
 import androidx.annotation.WorkerThread
-import com.apellikka.runmint.WeeklyStats
+import com.apellikka.runmint.domain.model.WeeklyStats
 import com.apellikka.runmint.database.dao.RunDao
 import com.apellikka.runmint.database.entity.Run
 import kotlinx.coroutines.flow.Flow
