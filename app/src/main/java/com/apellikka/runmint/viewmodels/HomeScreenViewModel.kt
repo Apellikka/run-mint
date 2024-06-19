@@ -1,7 +1,5 @@
 package com.apellikka.runmint.viewmodels
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.apellikka.runmint.WeeklyStats
@@ -11,17 +9,20 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAdjusters
-@RequiresApi(Build.VERSION_CODES.O)
 class HomeScreenViewModel(runRepository: RunRepository) : ViewModel() {
-
 
     private val weekStartAndEnd = getCurrentWeekStartAndEnd()
 
-    val easyStats: Flow<WeeklyStats> = runRepository.getWeeklyEasyRunStats(weekStartAndEnd.first, weekStartAndEnd.second)
-    val tempoStats: Flow<WeeklyStats> = runRepository.getWeeklyTempoRunStats()
-    val intervalStats: Flow<WeeklyStats> = runRepository.getWeeklyIntervalRunStats()
-    val longStats: Flow<WeeklyStats> = runRepository.getWeeklyLongRunStats()
-    val totalStats: Flow<WeeklyStats> = runRepository.getWeeklyTotalRunStats()
+    val easyStats: Flow<WeeklyStats> =
+        runRepository.getWeeklyRunTypeStats(weekStartAndEnd.first, weekStartAndEnd.second, "Easy")
+    val tempoStats: Flow<WeeklyStats> =
+        runRepository.getWeeklyRunTypeStats(weekStartAndEnd.first, weekStartAndEnd.second, "Tempo")
+    val intervalStats: Flow<WeeklyStats> =
+        runRepository.getWeeklyRunTypeStats(weekStartAndEnd.first, weekStartAndEnd.second, "Interval")
+    val longStats: Flow<WeeklyStats> =
+        runRepository.getWeeklyRunTypeStats(weekStartAndEnd.first, weekStartAndEnd.second, "Long")
+    val totalStats: Flow<WeeklyStats> =
+        runRepository.getWeeklyTotalRunStats(weekStartAndEnd.first, weekStartAndEnd.second)
 
     fun getCurrentWeekStartAndEnd(): Pair<LocalDate, LocalDate> {
         val today = LocalDate.now()

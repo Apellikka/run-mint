@@ -15,28 +15,13 @@ class RunRepository(
         runDao.insertRun(run)
     }
 
-    fun getWeeklyEasyRunStats(weekStartDate: LocalDate, weekEndDate: LocalDate): Flow<WeeklyStats>
+    fun getWeeklyRunTypeStats(weekStartDate: LocalDate, weekEndDate: LocalDate, runType: String): Flow<WeeklyStats>
     {
-        return runDao.getWeeklyEasyRunStats(weekStartDate, weekEndDate)
+        return runDao.getWeeklyRunTypeStats(weekStartDate, weekEndDate, runType)
     }
 
-    fun getWeeklyTempoRunStats(): Flow<WeeklyStats>
+    fun getWeeklyTotalRunStats(weekStartDate: LocalDate, weekEndDate: LocalDate): Flow<WeeklyStats>
     {
-        return runDao.getWeeklyTempoRunStats()
-    }
-
-    fun getWeeklyIntervalRunStats(): Flow<WeeklyStats>
-    {
-        return runDao.getWeeklyIntervalRunStats()
-    }
-
-    fun getWeeklyLongRunStats(): Flow<WeeklyStats>
-    {
-        return runDao.getWeeklyLongRunStats()
-    }
-
-    fun getWeeklyTotalRunStats(): Flow<WeeklyStats>
-    {
-        return runDao.getWeeklyTotalRunStats()
+        return runDao.getWeeklyTotalRunStats(weekStartDate, weekEndDate)
     }
 }

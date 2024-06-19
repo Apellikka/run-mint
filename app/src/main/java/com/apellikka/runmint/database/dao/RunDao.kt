@@ -23,48 +23,9 @@ interface RunDao {
             " SUM(distance) AS distance," +
             " SUM(hours * 60) + SUM(minutes) AS duration" +
             " FROM runs " +
-            " WHERE runtype = 'Easy' AND date >= :weekStartDate AND date <= :weekEndDate)"
-            )
-    fun getWeeklyEasyRunStats(weekStartDate: LocalDate, weekEndDate: LocalDate): Flow<WeeklyStats>
-
-    @Query("SELECT" +
-            " distance, " +
-            " duration, " +
-            "(duration / distance) AS avgPace " +
-            "FROM (" +
-            " SELECT " +
-            " SUM(distance) AS distance," +
-            " SUM(hours * 60) + SUM(minutes) AS duration" +
-            " FROM runs " +
-            " WHERE runtype = 'Tempo')"
-            )
-    fun getWeeklyTempoRunStats(): Flow<WeeklyStats>
-
-    @Query("SELECT" +
-            " distance, " +
-            " duration, " +
-            "(duration / distance) AS avgPace " +
-            "FROM (" +
-            " SELECT " +
-            " SUM(distance) AS distance," +
-            " SUM(hours * 60) + SUM(minutes) AS duration" +
-            " FROM runs " +
-            " WHERE runtype = 'Interval')"
-            )
-    fun getWeeklyIntervalRunStats(): Flow<WeeklyStats>
-
-    @Query("SELECT" +
-            " distance, " +
-            " duration, " +
-            "(duration / distance) AS avgPace " +
-            "FROM (" +
-            " SELECT " +
-            " SUM(distance) AS distance," +
-            " SUM(hours * 60) + SUM(minutes) AS duration" +
-            " FROM runs " +
-            " WHERE runtype = 'Long')"
+            " WHERE runtype = :runType AND date >= :weekStartDate AND date <= :weekEndDate)"
     )
-    fun getWeeklyLongRunStats(): Flow<WeeklyStats>
+    fun getWeeklyRunTypeStats(weekStartDate: LocalDate, weekEndDate: LocalDate, runType: String): Flow<WeeklyStats>
 
     @Query("SELECT" +
             " distance, " +
@@ -74,9 +35,10 @@ interface RunDao {
             " SELECT " +
             " SUM(distance) AS distance," +
             " SUM(hours * 60) + SUM(minutes) AS duration" +
-            " FROM runs)"
+            " FROM runs " +
+            "WHERE date >= :weekStartDate AND date <= :weekEndDate)"
             )
-    fun getWeeklyTotalRunStats(): Flow<WeeklyStats>
+    fun getWeeklyTotalRunStats(weekStartDate: LocalDate, weekEndDate: LocalDate): Flow<WeeklyStats>
 
     @Insert
     suspend fun insertRun(run: Run)
