@@ -39,7 +39,7 @@ fun CardContentText(
             modifier = Modifier
                 .padding(start = 30.dp),
             style = MaterialTheme.typography.bodyMedium,
-            text = String.format("%s %.1f", stringResource(id = R.string.distance), weeklyStats.distance),
+            text = String.format("%s %.2f", stringResource(id = R.string.distance), weeklyStats.distance),
             textAlign = TextAlign.Start
         )
         Text(
