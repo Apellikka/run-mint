@@ -1,5 +1,7 @@
 package com.apellikka.runmint.ui.composables
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,23 +22,80 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.apellikka.runmint.R
+import com.apellikka.runmint.WeeklyStats
+import com.apellikka.runmint.application.RunMintApplication
 import com.apellikka.runmint.ui.composables.navigation.RunNavigationActions
 import com.apellikka.runmint.ui.theme.RunMintTheme
 import com.apellikka.runmint.ui.theme.Stalinist
+import com.apellikka.runmint.viewmodels.HomeScreenViewModel
+import com.apellikka.runmint.viewmodels.HomeScreenViewModelFactory
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(
-    navigationActions: RunNavigationActions
+    navigationActions: RunNavigationActions,
+    homeScreenViewModel: HomeScreenViewModel = viewModel(
+        factory = HomeScreenViewModelFactory((LocalContext.current.applicationContext as RunMintApplication).repository)
+    )
 ) {
+    var easyStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
+    var tempoStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
+    var intervalStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
+    var longStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
+    var totalStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
+
+    val scope = rememberCoroutineScope()
+
+    val currentWeekStartAndEnd = homeScreenViewModel.getFormattedCurrentWeekStartAndEndDate(
+            homeScreenViewModel.getCurrentWeekStartAndEnd()
+    )
+
+    LaunchedEffect(easyStats, tempoStats, intervalStats, longStats, totalStats) {
+        scope.launch {
+            homeScreenViewModel.easyStats.collectLatest { value ->
+                easyStats = value
+            }
+        }
+        scope.launch {
+            homeScreenViewModel.tempoStats.collectLatest { value ->
+                tempoStats = value
+            }
+        }
+        scope.launch {
+            homeScreenViewModel.intervalStats.collectLatest { value ->
+                intervalStats = value
+            }
+        }
+        scope.launch {
+            homeScreenViewModel.longStats.collectLatest { value ->
+                longStats = value
+            }
+        }
+        scope.launch {
+            homeScreenViewModel.totalStats.collectLatest { value ->
+                totalStats = value
+            }
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -60,7 +119,6 @@ fun HomeScreen(
                 textAlign = TextAlign.Center
             )
         }
-        // TODO: Wrap card and content into it's own composable as well?
         ElevatedCard(
             modifier = Modifier
                 .fillMaxSize()
@@ -76,21 +134,32 @@ fun HomeScreen(
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 20.dp),
+                        .padding(top = 20.dp),
                     style = MaterialTheme.typography.titleLarge,
-                    text = stringResource(id = R.string.this_week),
+                    text = String.format("%s", stringResource(id = R.string.current_week)),
                     fontFamily = Stalinist,
                     textAlign = TextAlign.Center
                 )
-                CardContentText(infoTitle = R.string.title_easy, true)
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 10.dp),
+                    style = MaterialTheme.typography.titleLarge,
+                    text = String.format("%s-%s",
+                        currentWeekStartAndEnd.first,
+                        currentWeekStartAndEnd.second
+                    ),
+                    textAlign = TextAlign.Center
+                )
+                CardContentText(infoTitle = R.string.title_easy, easyStats)
                 Spacer(modifier = Modifier.height(10.dp))
-                CardContentText(infoTitle = R.string.title_tempo, true)
+                CardContentText(infoTitle = R.string.title_tempo, tempoStats)
                 Spacer(modifier = Modifier.height(10.dp))
-                CardContentText(infoTitle = R.string.title_interval, true)
+                CardContentText(infoTitle = R.string.title_interval, intervalStats)
                 Spacer(modifier = Modifier.height(10.dp))
-                CardContentText(infoTitle = R.string.title_other, true)
+                CardContentText(infoTitle = R.string.title_long, longStats)
                 Spacer(modifier = Modifier.height(10.dp))
-                CardContentText(infoTitle = R.string.title_total, false)
+                CardContentText(infoTitle = R.string.title_total, totalStats)
             }
         }
     }

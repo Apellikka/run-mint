@@ -1,5 +1,4 @@
-package com.apellikka.runmint.ui.composables.navigation
-
+package com.apellikka.runmint.ui
 import androidx.annotation.StringRes
 import com.apellikka.runmint.R
 
