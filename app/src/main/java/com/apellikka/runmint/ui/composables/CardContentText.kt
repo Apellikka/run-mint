@@ -11,7 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.apellikka.runmint.R
-import com.apellikka.runmint.WeeklyStats
+import com.apellikka.runmint.domain.model.WeeklyStats
 import kotlin.math.floor
 import kotlin.math.roundToInt
 

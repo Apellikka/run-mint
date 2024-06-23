@@ -1,4 +1,4 @@
-package com.apellikka.runmint
+package com.apellikka.runmint.domain.model
 
 data class WeeklyStats(
     val distance: Double,

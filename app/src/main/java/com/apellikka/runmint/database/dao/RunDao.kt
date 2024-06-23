@@ -4,15 +4,15 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.apellikka.runmint.WeeklyStats
 import com.apellikka.runmint.database.entity.Run
+import com.apellikka.runmint.domain.model.WeeklyStats
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
 @Dao
 interface RunDao {
     @Query("SELECT * FROM runs")
-    fun getAllRuns(): List<Run>
+    fun getAllRuns(): Flow<List<Run>>
 
     @Query("SELECT" +
             " distance, " +

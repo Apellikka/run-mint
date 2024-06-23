@@ -3,24 +3,50 @@ package com.apellikka.runmint.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.apellikka.runmint.R
 import com.apellikka.runmint.database.entity.Run
+import com.apellikka.runmint.domain.model.RunType
 import com.apellikka.runmint.repositories.RunRepository
 import com.apellikka.runmint.viewmodels.viewmodelutils.InputValidator
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 class AddRunViewModel(private val runRepository: RunRepository) : ViewModel() {
 
     private val inputValidator = InputValidator()
 
     val runTypes = arrayOf(
-        R.string.easy_run_type,
-        R.string.long_run_type,
-        R.string.tempo_run_type,
-        R.string.interval_run_type
+        RunType.EASY.type,
+        RunType.TEMPO.type,
+        RunType.INTERVAL.type,
+        RunType.LONG.type,
     )
 
-    fun insertRun(run: Run) {
+    fun insertRun(
+        date: LocalDate,
+        runType: String,
+        distance: Double,
+        hours: Int,
+        minutes: Int,
+        pace: Double?,
+        speed: Double?,
+        cadence: Int?,
+        stride: Int?,
+        hrMax: Int?,
+        hrAvg: Int?
+    ) {
+        val run = Run(
+            date = date,
+            runType = runType,
+            distance = distance,
+            hours = hours,
+            minutes = minutes,
+            pace = pace,
+            speed = speed,
+            cadence = cadence,
+            stride = stride,
+            hrMax = hrMax,
+            hrAvg = hrAvg
+        )
         viewModelScope.launch {
             runRepository.insertRun(run)
         }
