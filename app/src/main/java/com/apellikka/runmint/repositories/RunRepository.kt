@@ -1,9 +1,9 @@
 package com.apellikka.runmint.repositories
 
 import androidx.annotation.WorkerThread
-import com.apellikka.runmint.domain.model.WeeklyStats
 import com.apellikka.runmint.database.dao.RunDao
 import com.apellikka.runmint.database.entity.Run
+import com.apellikka.runmint.domain.model.WeeklyStats
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
@@ -14,6 +14,11 @@ class RunRepository(
     suspend fun insertRun(run: Run)
     {
         runDao.insertRun(run)
+    }
+
+    fun getAllRuns() : Flow<List<Run>>
+    {
+        return runDao.getAllRuns()
     }
 
     fun getWeeklyRunTypeStats(weekStartDate: LocalDate, weekEndDate: LocalDate, runType: String)
