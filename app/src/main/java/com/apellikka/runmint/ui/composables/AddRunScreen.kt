@@ -407,7 +407,7 @@ fun AddRunScreen(
                             minutes = minutes,
                     )) {
                         addRunViewModel.insertRun(
-                            date = LocalDate.parse(date, DateTimeFormatter.ofPattern("MMM dd, yyyy")),
+                            date = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd.MM.yyyy")),
                             runType = selectedRunType,
                             distance = distance.toDouble(),
                             hours = hours.toInt(),

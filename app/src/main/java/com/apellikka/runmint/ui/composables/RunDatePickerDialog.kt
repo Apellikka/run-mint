@@ -11,8 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import java.text.DateFormat
-import java.util.Date
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -61,6 +62,8 @@ fun RunDatePickerDialog(
 }
 
 private fun convertMillisToDate(millis: Long): String {
-    val formatter = DateFormat.getDateInstance()
-    return formatter.format(Date(millis))
+    val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+    val instant = Instant.ofEpochMilli(millis)
+    val date = instant.atZone(ZoneId.systemDefault()).toLocalDate()
+    return date.format(formatter)
 }
