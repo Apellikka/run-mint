@@ -16,12 +16,12 @@ interface RunDao {
 
     @Query("SELECT" +
             " distance, " +
-            " duration, " +
-            "(duration / distance) AS avgPace " +
+            " durationInSeconds, " +
+            "(durationInSeconds / distance) AS avgPace " +
             "FROM (" +
             " SELECT " +
             " SUM(distance) AS distance," +
-            " SUM(hours * 60) + SUM(minutes) AS duration" +
+            " SUM(durationInSeconds) AS durationInSeconds" +
             " FROM runs " +
             " WHERE runtype = :runType AND date >= :weekStartDate AND date <= :weekEndDate)"
     )
@@ -29,12 +29,12 @@ interface RunDao {
 
     @Query("SELECT" +
             " distance, " +
-            " duration, " +
-            "(duration / distance) AS avgPace " +
+            " durationInSeconds, " +
+            "(durationInSeconds / distance) AS avgPace " +
             "FROM (" +
             " SELECT " +
             " SUM(distance) AS distance," +
-            " SUM(hours * 60) + SUM(minutes) AS duration" +
+            " SUM(durationInSeconds) AS durationInSeconds" +
             " FROM runs " +
             "WHERE date >= :weekStartDate AND date <= :weekEndDate)"
             )

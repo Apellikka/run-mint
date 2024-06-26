@@ -27,6 +27,7 @@ class AddRunViewModel(private val runRepository: RunRepository) : ViewModel() {
         distance: Double,
         hours: Int,
         minutes: Int,
+        seconds: Int,
         pace: Double?,
         speed: Double?,
         cadence: Int?,
@@ -34,12 +35,12 @@ class AddRunViewModel(private val runRepository: RunRepository) : ViewModel() {
         hrMax: Int?,
         hrAvg: Int?
     ) {
+        val durationInSecs = (((hours*60) + minutes) * 60) + seconds
         val run = Run(
             date = date,
             runType = runType,
             distance = distance,
-            hours = hours,
-            minutes = minutes,
+            durationInSeconds = durationInSecs,
             pace = pace,
             speed = speed,
             cadence = cadence,
@@ -57,13 +58,15 @@ class AddRunViewModel(private val runRepository: RunRepository) : ViewModel() {
         runType: String,
         distance: String,
         hours: String,
-        minutes: String
+        minutes: String,
+        seconds: String
     ): Boolean {
         return (date.isNotEmpty()
                 && runType.isNotEmpty()
                 && distance.isNotEmpty()
                 && hours.isNotEmpty()
-                && minutes.isNotEmpty())
+                && minutes.isNotEmpty()
+                && seconds.isNotEmpty())
     }
 
     fun validateIntUnderThreeHundred(input: String): String {
@@ -86,8 +89,8 @@ class AddRunViewModel(private val runRepository: RunRepository) : ViewModel() {
         return inputValidator.validateHourInput(input)
     }
 
-    fun validateMinuteInput(input: String): String {
-        return inputValidator.validateMinuteInput(input)
+    fun validateMinutesAndSecondsInput(input: String): String {
+        return inputValidator.validateMinutesAndSecondsInput(input)
     }
 }
 

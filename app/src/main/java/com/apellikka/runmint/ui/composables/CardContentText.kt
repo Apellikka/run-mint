@@ -22,8 +22,8 @@ fun CardContentText(
 ) {
     // Convert to show hours, minutes and seconds correctly between 0-60
     // instead of 0-99
-    val durationHours = floor((weeklyStats.duration / 60)).toInt()
-    val durationMinutes = ((weeklyStats.duration % 60)).roundToInt()
+    val durationHours = floor((weeklyStats.durationInSeconds.toDouble() / 60)).toInt()
+    val durationMinutes = ((weeklyStats.durationInSeconds % 60))
     val avgPaceMinutes = weeklyStats.avgPace.toInt()
     val avgPaceSeconds = ((weeklyStats.avgPace - avgPaceMinutes) * 60).roundToInt()
 
@@ -46,7 +46,7 @@ fun CardContentText(
             modifier = Modifier
                 .padding(start = 30.dp),
             style = MaterialTheme.typography.bodyMedium,
-            text = String.format("%s %d:%02d", stringResource(id = R.string.duration), durationHours, durationMinutes),
+            text = String.format("%s %d", stringResource(id = R.string.duration), weeklyStats.durationInSeconds),
             textAlign = TextAlign.Start
         )
         Text(

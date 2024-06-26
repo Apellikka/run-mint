@@ -27,7 +27,7 @@ fun LogScreenRunCard(
         Text(text = String.format("%s", run.date.format(DateTimeFormatter.ofPattern("EEEE dd.MM.yyyy"))))
         Text(text = String.format(run.runType))
         Text(text = String.format("Distance: %.2f", run.distance))
-        Text(text = String.format("Hours: %d", run.hours))
-        Text(text = String.format("Minutes: %d", run.minutes))
+        Text(text = String.format("Hours: %d", run.durationInSeconds))
+        Text(text = String.format("Minutes: %d", run.durationInSeconds))
     }
 }

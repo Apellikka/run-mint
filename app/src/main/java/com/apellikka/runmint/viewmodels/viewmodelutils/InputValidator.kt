@@ -182,7 +182,7 @@ class InputValidator(
     /**
      * Validates minutes input to be between 0 and 59
      */
-    fun validateMinuteInput(input: String): String {
+    fun validateMinutesAndSecondsInput(input: String): String {
         if (input.matches("\\D".toRegex())) return ""
         if (input.matches("0+".toRegex())) return "0"
 

@@ -54,11 +54,11 @@ fun HomeScreen(
         factory = HomeScreenViewModelFactory((LocalContext.current.applicationContext as RunMintApplication).repository)
     )
 ) {
-    var easyStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
-    var tempoStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
-    var intervalStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
-    var longStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
-    var totalStats by remember { mutableStateOf(WeeklyStats(0.0, 0.0, 0.0)) }
+    var easyStats by remember { mutableStateOf(WeeklyStats(0.0, 0, 0.0)) }
+    var tempoStats by remember { mutableStateOf(WeeklyStats(0.0, 0, 0.0)) }
+    var intervalStats by remember { mutableStateOf(WeeklyStats(0.0, 0, 0.0)) }
+    var longStats by remember { mutableStateOf(WeeklyStats(0.0, 0, 0.0)) }
+    var totalStats by remember { mutableStateOf(WeeklyStats(0.0, 0, 0.0)) }
 
     val scope = rememberCoroutineScope()
 
