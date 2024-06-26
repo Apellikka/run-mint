@@ -19,8 +19,7 @@ fun CardContentText(
     @StringRes infoTitle: Int,
     weeklyStats: WeeklyStats
 ) {
-    // Convert to show hours, minutes and seconds correctly between 0-60
-    // instead of 0-99
+    // Calculate hours, minutes and seconds from total duration seconds
     val totalHours = weeklyStats.durationInSeconds / 3600.0
     val hours = floor(totalHours).toInt()
     val totalMinutes = ((totalHours - hours) * 60)
