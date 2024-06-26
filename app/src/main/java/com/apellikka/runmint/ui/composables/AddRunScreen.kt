@@ -61,6 +61,7 @@ fun AddRunScreen(
     var distance by remember { mutableStateOf("") }
     var hours by remember { mutableStateOf("") }
     var minutes by remember { mutableStateOf("") }
+    var seconds by remember { mutableStateOf("") }
     var date by remember { mutableStateOf("") }
     var pace by remember { mutableStateOf("") }
     var speed by remember { mutableStateOf("") }
@@ -247,7 +248,7 @@ fun AddRunScreen(
 
                 textStyle = MaterialTheme.typography.bodyMedium,
                 value = minutes,
-                onValueChange = { minutes = addRunViewModel.validateMinuteInput(it) },
+                onValueChange = { minutes = addRunViewModel.validateMinutesAndSecondsInput(it) },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Decimal,
                     imeAction = ImeAction.Next
@@ -260,6 +261,31 @@ fun AddRunScreen(
                 label = {
                     Text(
                         text = stringResource(id = R.string.minutes_label),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            )
+            OutlinedTextField(
+                colors =
+                if(requiredFieldIndicator && seconds.isBlank())
+                    OutlinedTextFieldDefaults.colors(unfocusedBorderColor = Color.Red)
+                else OutlinedTextFieldDefaults.colors(),
+
+                textStyle = MaterialTheme.typography.bodyMedium,
+                value = seconds,
+                onValueChange = { seconds = addRunViewModel.validateMinutesAndSecondsInput(it) },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Decimal,
+                    imeAction = ImeAction.Next
+                ),
+                keyboardActions = KeyboardActions(
+                    onNext = {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    }
+                ),
+                label = {
+                    Text(
+                        text = stringResource(id = R.string.seconds_label),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
@@ -405,6 +431,7 @@ fun AddRunScreen(
                             distance = distance,
                             hours = hours,
                             minutes = minutes,
+                            seconds = seconds
                     )) {
                         addRunViewModel.insertRun(
                             date = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd.MM.yyyy")),
@@ -412,6 +439,7 @@ fun AddRunScreen(
                             distance = distance.toDouble(),
                             hours = hours.toInt(),
                             minutes = minutes.toInt(),
+                            seconds = seconds.toInt(),
                             pace = if(pace.isNotEmpty()) pace.toDouble() else null,
                             speed = if(speed.isNotEmpty()) speed.toDouble() else null,
                             cadence = if(cadence.isNotEmpty()) cadence.toInt() else null,
@@ -424,6 +452,7 @@ fun AddRunScreen(
                         distance = ""
                         hours = ""
                         minutes = ""
+                        seconds = ""
                         pace = ""
                         speed = ""
                         cadence = ""

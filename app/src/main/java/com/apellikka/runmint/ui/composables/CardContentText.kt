@@ -13,19 +13,21 @@ import androidx.compose.ui.unit.dp
 import com.apellikka.runmint.R
 import com.apellikka.runmint.domain.model.WeeklyStats
 import kotlin.math.floor
-import kotlin.math.roundToInt
 
 @Composable
 fun CardContentText(
     @StringRes infoTitle: Int,
     weeklyStats: WeeklyStats
 ) {
-    // Convert to show hours, minutes and seconds correctly between 0-60
-    // instead of 0-99
-    val durationHours = floor((weeklyStats.duration / 60)).toInt()
-    val durationMinutes = ((weeklyStats.duration % 60)).roundToInt()
-    val avgPaceMinutes = weeklyStats.avgPace.toInt()
-    val avgPaceSeconds = ((weeklyStats.avgPace - avgPaceMinutes) * 60).roundToInt()
+    // Calculate hours, minutes and seconds from total duration seconds
+    val totalHours = weeklyStats.durationInSeconds / 3600.0
+    val hours = floor(totalHours).toInt()
+    val totalMinutes = ((totalHours - hours) * 60)
+    val minutes = floor(totalMinutes).toInt()
+    val seconds = ((totalMinutes - minutes) * 60)
+    val totalAvgPaceMins = (weeklyStats.avgPace / 60)
+    val avgPaceMinutes = floor(weeklyStats.avgPace / 60).toInt()
+    val avgPaceSeconds = ((totalAvgPaceMins - avgPaceMinutes) * 60)
 
     Column {
         Text(
@@ -46,14 +48,14 @@ fun CardContentText(
             modifier = Modifier
                 .padding(start = 30.dp),
             style = MaterialTheme.typography.bodyMedium,
-            text = String.format("%s %d:%02d", stringResource(id = R.string.duration), durationHours, durationMinutes),
+            text = String.format("%s %02d:%02d:%02.0f", stringResource(id = R.string.duration), hours, minutes, seconds),
             textAlign = TextAlign.Start
         )
         Text(
             modifier = Modifier
                 .padding(start = 30.dp),
             style = MaterialTheme.typography.bodyMedium,
-            text = String.format("%s %d:%02d", stringResource(id = R.string.avg_pace), avgPaceMinutes, avgPaceSeconds),
+            text = String.format("%s %d:%02.0f", stringResource(id = R.string.avg_pace), avgPaceMinutes, avgPaceSeconds),
             textAlign = TextAlign.Start
         )
         }
