@@ -2,14 +2,22 @@ package com.apellikka.runmint.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.apellikka.runmint.database.entity.Run
 import com.apellikka.runmint.repositories.RunRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
-class LogScreenViewModel(runRepository: RunRepository) : ViewModel() {
+class LogScreenViewModel(private val runRepository: RunRepository) : ViewModel() {
 
     val allRuns: Flow<List<Run>> = runRepository.getAllRuns()
 
+    fun deleteRun(run: Run)
+    {
+        viewModelScope.launch {
+            runRepository.deleteRun(run)
+        }
+    }
 }
 
 class LogScreenViewModelFactory(private val repository: RunRepository)
