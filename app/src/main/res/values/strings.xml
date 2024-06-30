@@ -33,5 +33,10 @@
     <string name="log">Log</string>
     <string name="plan">Plan</string>
     <string name="stats">Stats</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="delete_run">Delete run?</string>
+    <string name="time">Time:</string>
+    <string name="formatted_date_pattern">EEEE dd.MM.yyyy</string>
 
 </resources>
