@@ -16,6 +16,12 @@ class RunRepository(
         runDao.insertRun(run)
     }
 
+    @WorkerThread
+    suspend fun deleteRun(run: Run)
+    {
+        runDao.deleteRun(run)
+    }
+
     fun getAllRuns() : Flow<List<Run>>
     {
         return runDao.getAllRuns()

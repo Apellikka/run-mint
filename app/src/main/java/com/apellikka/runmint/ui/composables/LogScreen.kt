@@ -44,7 +44,7 @@ fun LogScreen(
         horizontalAlignment = Alignment.CenterHorizontally)
     {
         items(allRuns) { run ->
-            LogScreenRunCard(run)
+            LogScreenRunCard(run, logScreenViewModel)
         }
     }
 }
