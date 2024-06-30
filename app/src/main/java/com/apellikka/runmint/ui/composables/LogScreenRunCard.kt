@@ -66,12 +66,28 @@ fun LogScreenRunCard(
             horizontalArrangement = Arrangement.SpaceBetween) {
             Column()
             {
-                Text(text = String.format("%s", run.date.format(
-                    DateTimeFormatter.ofPattern(stringResource(id = R.string.formatted_date_pattern)))))
+                Text(
+                    text = String.format("%s",
+                        run.date.format(DateTimeFormatter.ofPattern(
+                            stringResource(id = R.string.formatted_date_pattern)))))
                 Text(text = String.format(run.runType))
-                Text(text = String.format("%s %.2f", stringResource(id = R.string.distance), run.distance))
-                Text(text = String.format("%s %d:%d:%02.0f", stringResource(id = R.string.time), hours, minutes, seconds))
-                Text(text = String.format("%s %d:%02.0f", stringResource(id = R.string.avg_pace), avgPaceMinutes, avgPaceSeconds))
+                Text(
+                    text = String.format("%s %.2f %s",
+                    stringResource(id = R.string.distance),
+                    run.distance,
+                    stringResource(id = R.string.km)))
+                Text(
+                    text = String.format("%s %d:%d:%02.0f",
+                        stringResource(id = R.string.time),
+                        hours,
+                        minutes,
+                        seconds))
+                Text(
+                    text = String.format("%s %d:%02.0f %s",
+                        stringResource(id = R.string.avg_pace),
+                        avgPaceMinutes,
+                        avgPaceSeconds,
+                        stringResource(id = R.string.mins_per_km)))
             }
             IconButton(modifier = Modifier
                 .align(Alignment.CenterVertically),

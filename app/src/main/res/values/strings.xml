@@ -38,5 +38,7 @@
     <string name="delete_run">Delete run?</string>
     <string name="time">Time:</string>
     <string name="formatted_date_pattern">EEEE dd.MM.yyyy</string>
+    <string name="km">km</string>
+    <string name="mins_per_km">mins/km</string>
 
 </resources>
