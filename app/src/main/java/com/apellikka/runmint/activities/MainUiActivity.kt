@@ -8,7 +8,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -19,8 +21,10 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -63,13 +67,36 @@ class MainUiActivity : ComponentActivity() {
                                         .background(MaterialTheme.colorScheme.secondary)
                                         .fillMaxWidth(),
                                     label =
-                                    {
-                                        Text(
-                                        text = stringResource(id = screen.resourceId),
-                                        style = MaterialTheme.typography.labelSmall)
-                                    },
+                                    {},
                                     selected = currentDestination?.hierarchy?.any {it.route == screen.route } == true,
-                                    icon = {},
+                                    icon = {
+                                        when(screen.route)
+                                        {
+                                            "home" -> Icon(
+                                                modifier = Modifier
+                                                    .size(35.dp),
+                                                painter = painterResource(id = R.drawable.home_24px),
+                                                contentDescription = "Home")
+                                            "log" -> Icon(
+                                                modifier = Modifier
+                                                    .size(35.dp),
+                                                painter = painterResource(id = R.drawable.browse_activity_24px),
+                                                contentDescription = "Log",
+                                                )
+                                            "plan" -> Icon(
+                                                modifier = Modifier
+                                                    .size(35.dp),
+                                                painter = painterResource(id = R.drawable.description_24px),
+                                                contentDescription = "Plan",
+                                            )
+                                            "stats" -> Icon(
+                                                modifier = Modifier
+                                                    .size(35.dp),
+                                                painter = painterResource(id = R.drawable.query_stats_24px),
+                                                contentDescription = "Stats",
+                                            )
+                                        }
+                                    },
                                     onClick = {
                                         navController.navigate(screen.route) {
                                             popUpTo(navController.graph.findStartDestination().id) {
