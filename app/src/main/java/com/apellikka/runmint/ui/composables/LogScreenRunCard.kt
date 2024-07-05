@@ -62,7 +62,8 @@ fun LogScreenRunCard(
     {
         Row(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(start = 10.dp),
             horizontalArrangement = Arrangement.SpaceBetween) {
             Column()
             {
