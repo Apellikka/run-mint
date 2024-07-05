@@ -41,7 +41,6 @@ import com.apellikka.runmint.application.RunMintApplication
 import com.apellikka.runmint.domain.model.WeeklyStats
 import com.apellikka.runmint.ui.composables.navigation.RunNavigationActions
 import com.apellikka.runmint.ui.theme.RunMintTheme
-import com.apellikka.runmint.ui.theme.Stalinist
 import com.apellikka.runmint.viewmodels.HomeScreenViewModel
 import com.apellikka.runmint.viewmodels.HomeScreenViewModelFactory
 import kotlinx.coroutines.flow.collectLatest
@@ -133,9 +132,8 @@ fun HomeScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 20.dp),
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.headlineLarge,
                     text = String.format("%s", stringResource(id = R.string.current_week)),
-                    fontFamily = Stalinist,
                     textAlign = TextAlign.Center
                 )
                 Text(
@@ -149,13 +147,13 @@ fun HomeScreen(
                     ),
                     textAlign = TextAlign.Center
                 )
-                CardContentText(infoTitle = R.string.title_easy, easyStats)
+                CardContentText(infoTitle = R.string.easy_run_type, easyStats)
                 Spacer(modifier = Modifier.height(10.dp))
-                CardContentText(infoTitle = R.string.title_tempo, tempoStats)
+                CardContentText(infoTitle = R.string.tempo_run_type, tempoStats)
                 Spacer(modifier = Modifier.height(10.dp))
-                CardContentText(infoTitle = R.string.title_interval, intervalStats)
+                CardContentText(infoTitle = R.string.interval_run_type, intervalStats)
                 Spacer(modifier = Modifier.height(10.dp))
-                CardContentText(infoTitle = R.string.title_long, longStats)
+                CardContentText(infoTitle = R.string.long_run_type, longStats)
                 Spacer(modifier = Modifier.height(10.dp))
                 CardContentText(infoTitle = R.string.title_total, totalStats)
             }

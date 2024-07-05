@@ -29,31 +29,24 @@ fun CardContentText(
     val avgPaceMinutes = floor(weeklyStats.avgPace / 60).toInt()
     val avgPaceSeconds = ((totalAvgPaceMins - avgPaceMinutes) * 60)
 
-    Column {
+    Column(modifier = Modifier
+        .padding(start = 30.dp)) {
         Text(
-            modifier = Modifier
-                .padding(start = 15.dp),
             style = MaterialTheme.typography.bodyLarge,
             text = stringResource(id = infoTitle),
             textAlign = TextAlign.Start
         )
         Text(
-            modifier = Modifier
-                .padding(start = 30.dp),
             style = MaterialTheme.typography.bodyMedium,
             text = String.format("%s %.2f", stringResource(id = R.string.distance), weeklyStats.distance),
             textAlign = TextAlign.Start
         )
         Text(
-            modifier = Modifier
-                .padding(start = 30.dp),
             style = MaterialTheme.typography.bodyMedium,
             text = String.format("%s %02d:%02d:%02.0f", stringResource(id = R.string.duration), hours, minutes, seconds),
             textAlign = TextAlign.Start
         )
         Text(
-            modifier = Modifier
-                .padding(start = 30.dp),
             style = MaterialTheme.typography.bodyMedium,
             text = String.format("%s %d:%02.0f", stringResource(id = R.string.avg_pace), avgPaceMinutes, avgPaceSeconds),
             textAlign = TextAlign.Start
