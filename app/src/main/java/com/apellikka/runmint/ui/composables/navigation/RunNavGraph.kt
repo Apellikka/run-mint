@@ -8,7 +8,8 @@ import androidx.navigation.compose.composable
 import com.apellikka.runmint.ui.composables.AddRunScreen
 import com.apellikka.runmint.ui.composables.HomeScreen
 import com.apellikka.runmint.ui.composables.LogScreen
-import com.apellikka.runmint.ui.composables.PlaceHolder
+import com.apellikka.runmint.ui.composables.PlanScreen
+import com.apellikka.runmint.ui.composables.StatsScreen
 
 @Composable
 fun RunNavGraph(
@@ -32,10 +33,10 @@ fun RunNavGraph(
             LogScreen()
         }
         composable(RunDestinations.PLAN_ROUTE) {
-            PlaceHolder()
+            PlanScreen()
         }
         composable(RunDestinations.STATS_ROUTE) {
-            PlaceHolder()
+            StatsScreen()
         }
     }
 }
