@@ -103,7 +103,7 @@ fun AddRunScreen(
                 if (toggleOptionalInputs) stringResource(id = R.string.hide_optional_inputs)
                 else stringResource(id = R.string.show_optional_inputs),
 
-                style = MaterialTheme.typography.labelSmall
+                style = MaterialTheme.typography.labelLarge
             )
         }
         Column(
@@ -469,7 +469,7 @@ fun AddRunScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.add_run),
-                    style = MaterialTheme.typography.labelSmall
+                    style = MaterialTheme.typography.labelLarge
                 )
             }
         }
