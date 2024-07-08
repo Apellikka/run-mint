@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -72,29 +73,58 @@ class MainUiActivity : ComponentActivity() {
                                     icon = {
                                         when(screen.route)
                                         {
-                                            "home" -> Icon(
-                                                modifier = Modifier
-                                                    .size(35.dp),
-                                                painter = painterResource(id = R.drawable.home_24px),
-                                                contentDescription = "Home")
-                                            "log" -> Icon(
-                                                modifier = Modifier
-                                                    .size(35.dp),
-                                                painter = painterResource(id = R.drawable.browse_activity_24px),
-                                                contentDescription = "Log",
-                                                )
-                                            "plan" -> Icon(
-                                                modifier = Modifier
-                                                    .size(35.dp),
-                                                painter = painterResource(id = R.drawable.description_24px),
-                                                contentDescription = "Plan",
-                                            )
-                                            "stats" -> Icon(
-                                                modifier = Modifier
-                                                    .size(35.dp),
-                                                painter = painterResource(id = R.drawable.query_stats_24px),
-                                                contentDescription = "Stats",
-                                            )
+                                            "home" ->
+                                                Column(
+                                                    horizontalAlignment = Alignment.CenterHorizontally
+                                                ) {
+                                                    Icon(
+                                                        modifier = Modifier
+                                                            .size(30.dp),
+                                                        painter = painterResource(id = R.drawable.home_24px),
+                                                        contentDescription = stringResource(id = R.string.home))
+                                                    Text(
+                                                        text = stringResource(id = R.string.home),
+                                                        style = MaterialTheme.typography.labelMedium)
+                                                }
+                                            "log" ->
+                                                Column(
+                                                    horizontalAlignment = Alignment.CenterHorizontally
+                                                ) {
+                                                    Icon(
+                                                        modifier = Modifier
+                                                            .size(30.dp),
+                                                        painter = painterResource(id = R.drawable.browse_activity_24px),
+                                                        contentDescription = stringResource(id = R.string.log))
+                                                    Text(
+                                                        text = stringResource(id = R.string.log),
+                                                        style = MaterialTheme.typography.labelMedium)
+                                                }
+                                            "plan" ->
+                                                Column(
+                                                    horizontalAlignment = Alignment.CenterHorizontally
+                                                ) {
+                                                    Icon(
+                                                        modifier = Modifier
+                                                            .size(30.dp),
+                                                        painter = painterResource(id = R.drawable.description_24px),
+                                                        contentDescription = stringResource(id = R.string.plan))
+                                                    Text(
+                                                        text = stringResource(id = R.string.plan),
+                                                        style = MaterialTheme.typography.labelMedium)
+                                                }
+                                            "stats" ->
+                                                Column(
+                                                    horizontalAlignment = Alignment.CenterHorizontally
+                                                ) {
+                                                    Icon(
+                                                        modifier = Modifier
+                                                            .size(30.dp),
+                                                        painter = painterResource(id = R.drawable.query_stats_24px),
+                                                        contentDescription = stringResource(id = R.string.stats))
+                                                    Text(
+                                                        text = stringResource(id = R.string.stats),
+                                                        style = MaterialTheme.typography.labelMedium)
+                                                }
                                         }
                                     },
                                     onClick = {
