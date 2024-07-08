@@ -23,8 +23,8 @@
     <string name="hr_max_label">Heart rate max</string>
     <string name="hr_avg_label">Heart rate average</string>
     <string name="add_run">Add run</string>
-    <string name="show_optional_inputs">Show optional inputs</string>
-    <string name="hide_optional_inputs">Hide optional inputs</string>
+    <string name="show_optional_inputs">Show optional</string>
+    <string name="hide_optional_inputs">Hide optional</string>
     <string name="home">Home</string>
     <string name="log">Log</string>
     <string name="plan">Plan</string>
