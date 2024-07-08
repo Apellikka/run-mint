@@ -78,7 +78,7 @@ fun LogScreenRunCard(
                     run.distance,
                     stringResource(id = R.string.km)))
                 Text(
-                    text = String.format("%s %d:%d:%02.0f",
+                    text = String.format("%s %02d:%02d:%02.0f",
                         stringResource(id = R.string.time),
                         hours,
                         minutes,
