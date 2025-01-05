@@ -1,6 +1,6 @@
 Application to track runs and their stats.
 
-Written in Kotlin for Android.
+Written in Kotlin for Android. Uses Room database to save the runs and follows the MVVM-architecture style. UI fully written with Jetpack Compose.
 
 Home screen
 
